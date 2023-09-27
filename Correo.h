@@ -1,0 +1,109 @@
+#pragma once
+#include "CPrincipal.h"
+#include "CSpam.h"
+#include "CEnviado.h"
+#include "CPapelera.h"
+#include "CFijado.h"
+#include "Busqueda.h"
+class Correo {
+private:
+	int usuario;
+	CPrincipal* principal;
+	CSpam* spam;
+	CEnviado* enviado;
+	CPapelera* papelera;
+	CFijado* fijado;
+	Busqueda* busqueda;
+public:
+	Correo() {
+	}
+	Correo(int ID) {
+		principal = new CPrincipal(ID);
+		spam = new CSpam(ID);
+		enviado = new CEnviado(ID);
+		papelera = new CPapelera(ID);
+		fijado = new CFijado(ID);
+		busqueda = new Busqueda(ID);
+	}
+	~Correo() {
+		principal->~CPrincipal();
+		spam->~CSpam();
+		enviado->~CEnviado();
+		papelera->~CPapelera();
+		fijado->~CFijado();
+		busqueda->~Busqueda();
+	}
+	void iniciarContenido() {
+		principal->iniciarContenidoPrincipal();
+		spam->iniciarContenidoSpam();
+		enviado->iniciarContenidoEnviado();
+		papelera->iniciarContenidoPapelera();
+		fijado->iniciarContenidoFijado();
+		cout << endl;
+		system("pause");
+	}
+
+	void manejarOpc(int op) {
+		switch (op) {
+		case 1:
+			system("cls");
+			principal->mostrarContenidoPrincipal();
+			break;
+		case 2:
+			system("cls");
+			fijado->mostrarContenidoFijado();
+			break;
+		case 3:
+			system("cls");
+			spam->mostrarContenidoSpam();
+			break;
+		case 4:
+			system("cls");
+			enviado->mostrarContenidoEnviado();
+			break;
+		case 5:
+			system("cls");
+			papelera->mostrarContenidoPapelera();
+			break;
+		case 6:
+			system("cls");;
+			principal->ordenarPorInicialAutor();
+			break;
+		case 7:
+			system("cls");
+			busqueda->menuBusqueda();
+			break;
+		case 8:
+			break;
+		default:
+			cout << "Opcion erronea.";
+			break;
+		}
+	}
+
+	int menuCliente(string nombre) {
+		int op;
+		system("cls");
+		cout << "Bienvenido, " << nombre;
+		cout << "\n1. Ver inbox principal";
+		cout << "\n2. Ver inbox fijado";
+		cout << "\n3. Ver inbox spam";
+		cout << "\n4. Ver inbox enviado";
+		cout << "\n5. Ver inbox papelera";
+		cout << "\n6. Ordenar principal por autor";
+		cout << "\n7. Buscar mensaje";
+		cout << "\n8. Cerrar sesion";
+		cout << "\nOpcion: "; cin >> op;
+		return op;
+	}
+
+	void manejarCorreo(string nombre) {
+		int op;
+		iniciarContenido();
+		do {
+			op = menuCliente(nombre);
+			manejarOpc(op);
+			system("pause");
+		} while (op > 0 && op < 8);
+	}
+};
