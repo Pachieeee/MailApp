@@ -1,5 +1,8 @@
 #pragma once
 #include "Contenido.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 
 template<class T>
 class Nodo {
