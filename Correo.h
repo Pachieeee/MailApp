@@ -1,9 +1,9 @@
 #pragma once
-#include "CPrincipal.h"
-#include "CSpam.h"
-#include "CEnviado.h"
-#include "CPapelera.h"
-#include "CFijado.h"
+#include "Inbox/CPrincipal.h"
+#include "Inbox/CSpam.h"
+#include "Inbox/CEnviado.h"
+#include "Inbox/CPapelera.h"
+#include "Inbox/CFijado.h"
 #include "Busqueda.h"
 class Correo {
 private:
