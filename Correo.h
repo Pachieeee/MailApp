@@ -7,7 +7,7 @@
 #include "Busqueda.h"
 class Correo {
 private:
-	int usuario;
+	int usuario; //a
 	CPrincipal* principal;
 	CSpam* spam;
 	CEnviado* enviado;
