@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Inbox">
+      <UniqueIdentifier>{bd8078c2-3cef-4e54-af45-54e3fa41bebf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TrabajoParcial.cpp">
@@ -44,23 +47,23 @@
     <ClInclude Include="Contenido.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CPrincipal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CSpam.h">
+    <ClInclude Include="Busqueda.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CEnviado.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Inbox</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpam.h">
+      <Filter>Header Files\Inbox</Filter>
+    </ClInclude>
+    <ClInclude Include="CPrincipal.h">
+      <Filter>Header Files\Inbox</Filter>
     </ClInclude>
     <ClInclude Include="CPapelera.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Inbox</Filter>
     </ClInclude>
     <ClInclude Include="CFijado.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Busqueda.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Inbox</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
