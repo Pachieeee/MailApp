@@ -176,7 +176,7 @@ public:
 		Nodo<T>* nodo = ini;
 		while (nodo != nullptr) {
 			Contenido* contenido = (Contenido*)(nodo->elem);
-			cout << contenido->getContenido();
+			// cout << contenido->getContenido();
 			nodo = nodo->sig;
 		}
 		return nullptr;

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "ListaCorreo.h"
-#include "Contenido.h"
-#include "Inicializador.h"
+#include "../ListaCorreo.h"
+#include "../Contenido.h"
+#include "../Inicializador.h"
 class CEnviado
 {
 private:
