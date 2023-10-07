@@ -1,3 +1,4 @@
+
 # Built application files
 *.apk
 *.aar
@@ -687,3 +688,4 @@ fabric.properties
 .history/
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Android,Flutter,VisualStudio,AndroidStudio,VisualStudioCode
+
