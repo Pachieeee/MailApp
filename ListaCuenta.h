@@ -112,6 +112,10 @@ public:
 	}
 
 	void mostrar() {
+		if (getLon() == 0) {
+			cout << "Lista vacia. Intente ingresar nuevos usuarios.";
+			return;
+		}
 		int cont = 0;
 		NodoS<T>* nodo = ini;
 		do {
