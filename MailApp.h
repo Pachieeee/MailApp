@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable:4996) //Deshabilita el error _CRT_SECURE_NO_WARNINGS debido al uso de localtime() en ciertos sistemas
 #include "Cuenta.h"
 #include "Correo.h"
 #include "ListaCuenta.h"
@@ -6,6 +7,7 @@
 #include "CrearCuenta.h"
 #include "Inicializador.h"
 #include <ctime>
+
 
 class MailApp
 {
@@ -105,13 +107,14 @@ public:
 			exit(0);
 		case 0:
 			LSCuenta->mostrar();
+			cout << endl;
 			system("pause");
 			break;
 		}
 	}
 
 
-void inicioPantalla(tm* tPtr, int &opt){
+	void inicioPantalla(tm* tPtr, int &opt){
 		cout << "\n\n\n\t\t\t Fecha: " << (tPtr->tm_mday) << "/" << (tPtr->tm_mon) + 1 << "/" << (tPtr->tm_year) + 1900 << endl;
 		cout << "\t\t\t Hora: " << (tPtr->tm_hour) << ":" << (tPtr->tm_min) << endl;
 
@@ -165,12 +168,13 @@ void inicioPantalla(tm* tPtr, int &opt){
 		generar->inicializarCuentas(LSCuenta);
 		int op;
 		bienvenida(tPtr);
-		system("cls");
+		while (true) {
+			system("cls");
+			INICIOSESIONVISTA:inicioPantalla(tPtr, inicioSesionOpcion);
+			system("cls");
 
-		INICIOSESIONVISTA:inicioPantalla(tPtr, inicioSesionOpcion);
-		system("cls");
-
-		manejarOpcion(inicioSesionOpcion);
+			manejarOpcion(inicioSesionOpcion);
+		};
 
 	}
 };
