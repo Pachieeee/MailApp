@@ -3,6 +3,7 @@
 #include <string>
 #include <functional>
 #include <sys/stat.h> // Para mkdir en sistemas Unix/Linux
+#include <regex>
 
 using namespace std;
 
