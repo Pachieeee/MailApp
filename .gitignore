@@ -3,13 +3,7 @@
 
 # IGNORAR LA BD para no tener conflictos de datos
 /BD/
-/BD*/
-BD/
-../BD/
-BD/*
-*BD
-BD
-*.txt
+
 # Built application files
 *.apk
 *.aar
