@@ -20,7 +20,7 @@ public:
 
 	void iniciarContenidoPrincipal() {
 		cout << "\nCargando correo principal...";
-		string direccion = "Datos/" + to_string(idUsuario) + ".txt";
+		string direccion = "BD/" + to_string(idUsuario) + ".txt";
 		iniP.inicializarCorreo(principal, direccion, "P");
 		cout << "Correo principal cargado!";
 	}

@@ -1,0 +1,3 @@
+hola,nomas,hola@gmail.com.pe,123456,0
+jhomar,astuyauri,jhomar@gmail.com,hola,1
+buenas,apellido,test@hotmail.com,123,2
