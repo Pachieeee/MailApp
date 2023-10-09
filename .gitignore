@@ -1,8 +1,15 @@
 
 
 
-# IGNORAR LA BD para no tener conflictos de datos
+# Ignorar archivos de la bd
 /BD/
+
+# Ignorar archivos de visual studio
+
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.ser
 
 # Built application files
 *.apk
