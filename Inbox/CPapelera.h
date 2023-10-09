@@ -20,7 +20,7 @@ public:
 
 	void iniciarContenidoPapelera() {
 		cout << "\nCargando correo papelera...";
-		string direccion = "Datos/" + to_string(idUsuario) + ".txt";
+		string direccion = "BD/" + to_string(idUsuario) + ".txt";
 		iniT.inicializarCorreo(papelera, direccion, "T");
 		cout << "Correo papelera cargado!";
 	}

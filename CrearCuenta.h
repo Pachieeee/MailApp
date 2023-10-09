@@ -30,10 +30,8 @@ public:
 		if (!verificarCorreoExistente(correo, lista)) {
 			lista->pushBack(new Cuenta(nombre, apellido, correo, contra, lista->getLon()));
 			guardar.guardarCuenta(nombre + "," + apellido + "," + correo + "," + contra + "," + to_string(lista->getLon()-1), lista->getLon()-1);
-
 			cout << "\nLa cuenta fue creada y guardada!\n";
 		}
-		else
-			cout << "\nSe ha hallado una cuenta existente con ese correo.\n";
+		else cout << "\nSe ha hallado una cuenta existente con ese correo.\n";
 	}
 };

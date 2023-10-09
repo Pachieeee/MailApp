@@ -20,7 +20,7 @@ public:
 
 	void iniciarContenidoSpam() {
 		cout << "\nCargando correo spam...";
-		string direccion = "Datos/" + to_string(idUsuario) + ".txt";
+		string direccion = "BD/" + to_string(idUsuario) + ".txt";
 		iniS.inicializarCorreo(spam, direccion, "S");
 		cout << "Correo spam cargado!";
 	}

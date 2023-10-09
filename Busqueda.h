@@ -22,7 +22,7 @@ public:
 
 	void iniciarContenidoBusqueda() {
 		cout << "\nCargando resultados de busqueda...";
-		string direccion = "Datos/" + to_string(idUsuario) + ".txt";
+		string direccion = "BD/" + to_string(idUsuario) + ".txt";
 		iniT.inicializarBusqueda(busqueda, direccion, campoBusqueda, filtro);
 		cout << "\nResultados de busqueda cargados!\n";
 		system("pause>null");
