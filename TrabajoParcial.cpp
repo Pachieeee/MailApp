@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <functional>
+#include <conio.h>
 #include <sys/stat.h> // Para mkdir en sistemas Unix/Linux
 #include <regex>
 
