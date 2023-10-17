@@ -70,6 +70,7 @@ public:
 		ini = NULL;
 	}
 
+	int getLon() { return this->lon; }
 	/*static bool compararAutores(const Contenido& autorA, const Contenido& autorB) {
 		return compararOrdenAlfabetico(autorA.getAutor()[0], autorB.getAutor()[0]);
 	}*/
@@ -160,13 +161,13 @@ public:
 		popPos(lon - 1);
 	}
 
-	T getNodo(int pos) {
+	Nodo<T>* getNodo(int pos) {
 		if (pos >= 0 && pos < lon) {
 			Nodo<T>* nodo = ini;
 			for (int i = 0; i < pos; i++) {
 				nodo = nodo->sig;
 			}
-			return nodo->elem;
+			return nodo;
 		}
 		else {
 			return nullptr;
@@ -180,6 +181,17 @@ public:
 			nodo = nodo->sig;
 		}
 		return nullptr;
+	}
+
+	void vistaSimple(int pos) {
+		Nodo<T>* nodo = getNodo(pos);
+		Contenido* contenido = (Contenido*)(nodo->elem);
+		contenido->getResumen();
+	}
+	void vistaAmplia(int pos) {
+		Nodo<T>* nodo = getNodo(pos);
+		Contenido* contenido = (Contenido*)(nodo->elem);
+		contenido->getContenido();
 	}
 
 	Nodo<T>* getTail(Nodo<T>* nodo) {

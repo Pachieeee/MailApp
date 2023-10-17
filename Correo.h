@@ -43,11 +43,51 @@ public:
 		system("pause");
 	}
 
+	void manejarPrincipal() {
+		char charac = '1';
+		int pag = 0; //La pagina en la que se encuentra el usuario (max 10 corres/pag)
+		int limite = 10; //El limite de correos que se puede presentar. (temp)
+		int ampliar = 11; //What the fuck is this
+		int cantCorreos = principal->retornarCantCorreos(); // 
+		while (tolower(charac) != 'x') {
+			system("cls");
+			//revisar limite de los correos
+			limite = cantCorreos - pag * 10;
+			if (limite > 10) limite = 10;
+			principal->mostrarContenidoPrincipal(pag, limite, ampliar);
+			if (pag > 0) {
+				cout << "\na: Pagina anterior (" << pag - 1 << ")";
+			}
+			
+			cout << "\ns: Pagina siguiente (" << pag + 1 << ")";
+			cout << "\nx: Volver al menu\n";
+			charac = _getch();
+			//Pagina anterior
+			if (tolower(charac) == 'a' && pag > 0) {
+				pag--;
+				ampliar = 11;
+			}
+			//Pagina siguiente
+			else if (tolower(charac) == 's') {
+				pag++;
+				ampliar = 11;
+			}
+			//Numero de correo en pagina actual
+			else if (charac > 47 && charac < 58) {
+				ampliar = (int)charac - 49;
+				if (ampliar == -1)
+					ampliar = 9;
+			}
+
+		}
+	}
+
 	void manejarOpc(int op) {
 		switch (op) {
 		case 1:
 			system("cls");
-			principal->mostrarContenidoPrincipal();
+			manejarPrincipal();
+			//principal->mostrarContenidoPrincipal(0);
 			break;
 		case 2:
 			system("cls");

@@ -27,11 +27,14 @@ public:
 	}
 
 	string getAutor() { return this->autor; }
+	void getResumen() {
+		cout << autor << " - " << asunto;
+	}
 	void getContenido() {
-		cout << "\nDE: " << autor << "(" << correoAutor << ")";
-		cout << "\n-------------------------------------------------------------";
-		cout << "\nASUNTO:" << asunto;
-		cout << "\n-------------------------------------------------------------";
-		cout << "\n" << mensaje;
+		cout << "   DE: " << autor << "(" << correoAutor << ")";
+		cout << "\n   ----------------------------------------------------------";
+		cout << "\n   ASUNTO:" << asunto;
+		cout << "\n   ----------------------------------------------------------";
+		cout << "\n   " << mensaje;
 	}
 };
