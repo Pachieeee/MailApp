@@ -63,7 +63,7 @@ public:
 			}
 			cout << "\nx: Volver al menu\n\n";
 			cout << pag*10+1 << " - " << pag * 10 + limite << " / " << cantCorreos << endl;
-			charac = _getch();
+			cout << "Opcion: "; charac = cin.get();
 			//Pagina anterior
 			if (tolower(charac) == 'a' && pag > 0) {
 				pag--;
