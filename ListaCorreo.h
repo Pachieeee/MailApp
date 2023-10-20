@@ -21,13 +21,7 @@ class ListaDoble {
 private:
 	Nodo<T>* ini;
 	int lon;
-	//function<bool(char, char)> compararOrdenAlfabetico;
-
-	bool compararOrdenAlfabetico(T a, T b) {
-		char letraA = a->getAutor()[0];
-		char letraB = b->getAutor()[0];
-		return letraA < letraB;
-	}
+	function<bool(T, T)> compararOrdenAlfabetico;
 
 	Nodo<T>* particion(Nodo<T>* menor, Nodo<T>* mayor) {
 		T pivote = mayor->elem; //pivote
@@ -54,9 +48,9 @@ public:
 	ListaDoble() {
 		ini = NULL;
 		lon = 0;
-		/*compararOrdenAlfabetico = [](char autorA, char autorB) {
-			return autorA < autorB;
-			};*/
+		compararOrdenAlfabetico = [](T autorA, T autorB) {
+			return (char)autorA->getAutor()[0] < (char)autorB->getAutor()[0];
+		};
 	}
 	~ListaDoble() {
 		Nodo<T>* temp;
