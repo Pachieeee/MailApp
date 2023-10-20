@@ -58,9 +58,11 @@ public:
 			if (pag > 0) {
 				cout << "\na: Pagina anterior (" << pag - 1 << ")";
 			}
-			
-			cout << "\ns: Pagina siguiente (" << pag + 1 << ")";
-			cout << "\nx: Volver al menu\n";
+			if (pag < cantCorreos / 10) {
+				cout << "\ns: Pagina siguiente (" << pag + 1 << ")";
+			}
+			cout << "\nx: Volver al menu\n\n";
+			cout << pag*10+1 << " - " << pag * 10 + limite << " / " << cantCorreos << endl;
 			charac = _getch();
 			//Pagina anterior
 			if (tolower(charac) == 'a' && pag > 0) {
@@ -68,7 +70,7 @@ public:
 				ampliar = 11;
 			}
 			//Pagina siguiente
-			else if (tolower(charac) == 's') {
+			else if (tolower(charac) == 's' && pag < cantCorreos/10) {
 				pag++;
 				ampliar = 11;
 			}
@@ -78,7 +80,6 @@ public:
 				if (ampliar == -1)
 					ampliar = 9;
 			}
-
 		}
 	}
 
