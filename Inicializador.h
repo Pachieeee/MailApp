@@ -9,10 +9,15 @@ private:
 	ifstream lector;
 	ofstream guardado;
 public:
-	Inicializador() {}
+	Inicializador() {
+		CrearCarpeta();
+	}
+	void CrearCarpeta(string nombreCarpeta = "BD") {
+		int resultado = system(("mkdir " + nombreCarpeta).c_str());
+	}
 
 	void inicializarCuentas(ListaSimple<Cuenta*>* lista) {
-		lector.open("Datos/Cuentas.txt", ios::in);
+		lector.open("BD/Cuentas.txt", ios::in);
 		if (lector.is_open()) {
 			string nom, ape, cor, con;
 			string id;
@@ -41,6 +46,7 @@ public:
 				getline(lector, corA, '|');
 				getline(lector, asu, '|');
 				getline(lector, mens);
+
 				bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens));
 				if (tipo == "") break;
 				else
@@ -79,10 +85,10 @@ public:
 	}
 
 	void guardarCuenta(string line, int id) {
-		guardado.open("Datos/Cuentas.txt", ios_base::app);
+		guardado.open("BD/Cuentas.txt", ios_base::app);
 		guardado << line << endl;
 		guardado.close();
-		string nuevoUsuario = "Datos/" + to_string(id) + ".txt";
+		string nuevoUsuario = "BD/" + to_string(id) + ".txt";
 		guardado.open(nuevoUsuario, ios::out);
 		guardado.close();
 	}

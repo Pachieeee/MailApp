@@ -21,13 +21,7 @@ class ListaDoble {
 private:
 	Nodo<T>* ini;
 	int lon;
-	//function<bool(char, char)> compararOrdenAlfabetico;
-
-	bool compararOrdenAlfabetico(T a, T b) {
-		char letraA = a->getAutor()[0];
-		char letraB = b->getAutor()[0];
-		return letraA < letraB;
-	}
+	function<bool(T, T)> compararOrdenAlfabetico;
 
 	Nodo<T>* particion(Nodo<T>* menor, Nodo<T>* mayor) {
 		T pivote = mayor->elem; //pivote
@@ -54,9 +48,9 @@ public:
 	ListaDoble() {
 		ini = NULL;
 		lon = 0;
-		/*compararOrdenAlfabetico = [](char autorA, char autorB) {
-			return autorA < autorB;
-			};*/
+		compararOrdenAlfabetico = [](T autorA, T autorB) {
+			return (char)autorA->getAutor()[0] < (char)autorB->getAutor()[0];
+		};
 	}
 	~ListaDoble() {
 		Nodo<T>* temp;
@@ -69,10 +63,7 @@ public:
 		delete ini;
 		ini = NULL;
 	}
-
-	/*static bool compararAutores(const Contenido& autorA, const Contenido& autorB) {
-		return compararOrdenAlfabetico(autorA.getAutor()[0], autorB.getAutor()[0]);
-	}*/
+	int getLon() { return this->lon; }
 
 	void mostrar() {
 		Nodo<T>* nodo = ini;
@@ -179,13 +170,13 @@ public:
 		popPos(lon - 1);
 	}
 
-	T getNodo(int pos) {
+	Nodo<T>* getNodo(int pos) {
 		if (pos >= 0 && pos < lon) {
 			Nodo<T>* nodo = ini;
 			for (int i = 0; i < pos; i++) {
 				nodo = nodo->sig;
 			}
-			return nodo->elem;
+			return nodo;
 		}
 		else {
 			return nullptr;
@@ -199,6 +190,17 @@ public:
 			nodo = nodo->sig;
 		}
 		return nullptr;
+	}
+
+	void vistaSimple(int pos) {
+		Nodo<T>* nodo = getNodo(pos);
+		Contenido* contenido = (Contenido*)(nodo->elem);
+		contenido->getResumen();
+	}
+	void vistaAmplia(int pos) {
+		Nodo<T>* nodo = getNodo(pos);
+		Contenido* contenido = (Contenido*)(nodo->elem);
+		contenido->getContenido();
 	}
 
 	Nodo<T>* getTail(Nodo<T>* nodo) {
