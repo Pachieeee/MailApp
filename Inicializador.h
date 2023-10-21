@@ -3,23 +3,16 @@
 #include "Contenido.h"
 #include "ListaCuenta.h"
 #include "ListaCorreo.h"
-
 class Inicializador
 {
 private:
 	ifstream lector;
 	ofstream guardado;
 public:
-	Inicializador() {
-		CrearCarpeta();
-	}
-
-	void CrearCarpeta(string nombreCarpeta="BD"){
-		int resultado = system(("mkdir " + nombreCarpeta).c_str());
-	}
+	Inicializador() {}
 
 	void inicializarCuentas(ListaSimple<Cuenta*>* lista) {
-		lector.open("BD/Cuentas.txt", ios::in);
+		lector.open("Datos/Cuentas.txt", ios::in);
 		if (lector.is_open()) {
 			string nom, ape, cor, con;
 			string id;
@@ -37,20 +30,18 @@ public:
 		}
 	}
 
-	void inicializarCorreo(ListaDoble<Contenido*>* bandeja, string direc, string obj) {
+	void inicializarCorreo(ListaDoble<Contenido*>* bandeja, string direc) {
 		lector.open(direc, ios::in);
 		if (lector.is_open()) {
 			string tipo, aut, corA, asu, mens;
 
 			while (!lector.eof()) {
 				getline(lector, tipo, '|');
-				if (tipo == obj) {
-					getline(lector, aut, '|');
-					getline(lector, corA, '|');
-					getline(lector, asu, '|');
-					getline(lector, mens);
-					bandeja->pushBack(new Contenido(aut, corA, asu, mens));
-				}
+				getline(lector, aut, '|');
+				getline(lector, corA, '|');
+				getline(lector, asu, '|');
+				getline(lector, mens);
+				bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens));
 				if (tipo == "") break;
 				else
 					getline(lector, tipo);
@@ -73,12 +64,12 @@ public:
 				{
 				case 1:
 					if (aut == obj) {
-						bandeja->pushBack(new Contenido(aut, corA, asu, mens));
+						bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens));
 					}
 					break;
 				case 2:
 					if (corA == obj) {
-						bandeja->pushBack(new Contenido(aut, corA, asu, mens));
+						bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens));
 					}
 					break;
 				}
@@ -88,10 +79,10 @@ public:
 	}
 
 	void guardarCuenta(string line, int id) {
-		guardado.open("BD/Cuentas.txt", ios_base::app);
+		guardado.open("Datos/Cuentas.txt", ios_base::app);
 		guardado << line << endl;
 		guardado.close();
-		string nuevoUsuario = "BD/" + to_string(id) + ".txt";
+		string nuevoUsuario = "Datos/" + to_string(id) + ".txt";
 		guardado.open(nuevoUsuario, ios::out);
 		guardado.close();
 	}
