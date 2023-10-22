@@ -168,7 +168,8 @@ public:
 				switch (optionInAdmin)
 				{
 				case 1:
-					LSCuenta->mostrar();
+					LSCuenta->mostrarOrdenadoPorHeapSort();
+					// LSCuenta->mostrar();
 					goto ADMINSCREEN_TWO;
 				case 0:
 					system("cls");
@@ -186,8 +187,15 @@ public:
 					goto ADMINSCREEN_ONE;
 					break;
 				}
-			}
+			} else
+			{
+				cout << "\n\n\n\t\t\t Date: " << (tPtr->tm_mday) << "/" << (tPtr->tm_mon) + 1 << "/" << (tPtr->tm_year) + 1900 << endl;
+				cout << "\t\t\t Time: " << (tPtr->tm_hour) << ":" << (tPtr->tm_min) << endl;
 
+				cout << "Datos incorrectos" << endl;
+				system("cls");
+			}
+			break;
 			cout << endl;
 			system("pause");
 			break;
@@ -203,11 +211,9 @@ public:
 		int op;
 		bienvenida(tPtr);
 
-		INICIOSESIONVISTA:
-
 		while (true) {
 			system("cls");
-			inicioPantalla(tPtr, inicioSesionOpcion);
+			INICIOSESIONVISTA:inicioPantalla(tPtr, inicioSesionOpcion);
 			system("cls");
 
 			manejarOpcion(tPtr, inicioSesionOpcion);

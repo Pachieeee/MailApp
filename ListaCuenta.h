@@ -1,6 +1,8 @@
 #pragma once
 #include "Cuenta.h"
 
+using namespace std;
+
 template <class T>
 class NodoS {
 public:
@@ -46,7 +48,7 @@ public:
 	void pushFront(T val) {
 		NodoS<T>* nodo = new NodoS<T>(val);
 
-		if (ini = NULL)
+		if (ini == NULL)
 			ini = nodo;
 		else
 			nodo->sig = ini;
@@ -113,20 +115,108 @@ public:
 
 	void mostrar() {
 		if (getLon() == 0) {
-			cout << "Lista vacia. Intente ingresar nuevos usuarios.";
+			cout << "Lista vacía. Intente ingresar nuevos usuarios.";
 			return;
 		}
-		int cont = 0;
+
 		NodoS<T>* nodo = ini;
-		do {
-			cout << "\nUsuario " << cont << ": ";
-			Cuenta* cta = (Cuenta*)(nodo->elem);
-			cout << cta->getNombre() << ", " << cta->getApellido() << ", " << cta->getCorreo() << ", " << cta->getID();
+		stack<NodoS<T>*> pila;
+
+		while (nodo != nullptr) {
+			pila.push(nodo);
 			nodo = nodo->sig;
-			cont++;
-		} while (nodo != nullptr);
+		}
+
+		while (!pila.empty()) {
+			nodo = pila.top();
+			pila.pop();
+			cout << "ID: ";
+			Cuenta* cta = (Cuenta*)(nodo->elem);
+			cout << cta->getID() << ", " << cta->getNombre() << ", " << cta->getApellido() << ", " << cta->getCorreo() << endl;
+		}
 		cout << endl;
 	}
+
+
+	NodoS<T>* findByValue(const T& val) {
+		NodoS<T>* nodo = ini;
+		while (nodo != nullptr) {
+			if (nodo->elem == val) {
+				return nodo;
+			}
+			nodo = nodo->sig;
+		}
+		return nullptr;
+	}
+
+	void swapNodes(NodoS<T>* nodo1, NodoS<T>* nodo2) {
+		T temp = nodo1->elem;
+		nodo1->elem = nodo2->elem;
+		nodo2->elem = temp;
+	}
+
+	bool comparePorApellido(Cuenta* cuenta1, Cuenta* cuenta2) {
+		return cuenta1->getApellido() < cuenta2->getApellido();
+	}
+
+
+	T* toArray() {
+		T* arr = new T[lon];
+		NodoS<T>* current = ini;
+		int index = 0;
+		while (current != nullptr) {
+			arr[index] = current->elem;
+			current = current->sig;
+			index++;
+		}
+		return arr;
+	}
+
+	void heapify(T* arr, int n, int i) {
+		int largest = i;
+		int left = 2 * i + 1;
+		int right = 2 * i + 2;
+
+		if (left < n && comparePorApellido(arr[left], arr[largest])) {
+			largest = left;
+		}
+
+		if (right < n && comparePorApellido(arr[right], arr[largest])) {
+			largest = right;
+		}
+
+		if (largest != i) {
+			swapNodes(findByValue(arr[i]), findByValue(arr[largest])); // Agrega esta función para encontrar el nodo por su valor
+			swap(arr[i], arr[largest]);
+			heapify(arr, n, largest);
+		}
+	}
+
+
+	void heapSort() {
+		T* arr = toArray();
+		int n = lon;
+
+		for (int i = n / 2 - 1; i >= 0; i--) {
+			heapify(arr, n, i);
+		}
+
+		for (int i = n - 1; i > 0; i--) {
+			swap(arr[0], arr[i]);
+			swapNodes(findByValue(arr[0]), findByValue(arr[i])); // Agrega esta función para encontrar el nodo por su valor
+			heapify(arr, i, 0);
+		}
+
+		delete[] arr;
+	}
+
+
+	void mostrarOrdenadoPorHeapSort() {
+		heapSort();
+		cout << "Heap sort aplicado" << endl;
+		mostrar();
+	}
+
 
 	T getNodo(int pos) {
 		if (pos >= 0 && pos < lon) {
