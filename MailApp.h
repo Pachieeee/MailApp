@@ -95,25 +95,7 @@ public:
 		inbox->~Correo();
 	}
 
-	void manejarOpcion(int op) {
-		switch (op) {
-		case 1:
-			iniciaSesion();
-			break;
-		case 2:
-			creador->crearCuentaCompleta(LSCuenta);
-			system("pause");
-			break;
-		case 3:
-			exit(0);
-		case 0:
-			LSCuenta->mostrar();
-			cout << endl;
-			system("pause");
-			break;
-		}
-	}
-
+	
 
 	void inicioPantalla(tm* tPtr, int &opt){
 		cout << "\n\n\n\t\t\t Fecha: " << (tPtr->tm_mday) << "/" << (tPtr->tm_mon) + 1 << "/" << (tPtr->tm_year) + 1900 << endl;
@@ -138,7 +120,7 @@ public:
 		cout << "\t\t\t #" << "\t\t\t\t\t\t    1) Iniciar sesion\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t    2) Crear una cuenta\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t    3) Salir\t\t\t\t\t\t\t  #" << endl;
-		cout << "\t\t\t #" << "\t\t\t\t\t\t    0) DEBUG: Mostrar cuentas\t\t\t\t\t\t\t\t  #" << endl;
+		cout << "\t\t\t #" << "\t\t\t\t\t\t    0) Administrador\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
@@ -161,6 +143,57 @@ public:
 		cout << "\t\t\t Opcion: ",cin>>opt,cout<<endl;
 	}
 
+
+	void manejarOpcion(tm* tPtr, int op) {
+		switch (op) {
+		case 1:
+			iniciaSesion();
+			break;
+		case 2:
+			creador->crearCuentaCompleta(LSCuenta);
+			system("pause");
+			break;
+		case 3:
+			exit(0);
+		case 0:
+			Admin administrador;
+			string adminUsername;
+			string adminPassword;
+			int optionInAdmin;
+			ADMINSCREEN_ONE:administrador.screenAdminOne(tPtr, adminUsername, adminPassword);
+			system("cls");
+			if(administrador.checkCredentials(adminUsername, adminPassword)){
+				ADMINSCREEN_TWO:administrador.screenAdminTwo(tPtr, optionInAdmin);
+				system("cls");
+				switch (optionInAdmin)
+				{
+				case 1:
+					LSCuenta->mostrar();
+					goto ADMINSCREEN_TWO;
+				case 0:
+					system("cls");
+					break;
+				default:
+					system("cls");
+					cout << "\n\n\n\t\t\t Date: " << (tPtr->tm_mday) << "/" << (tPtr->tm_mon) + 1 << "/" << (tPtr->tm_year) + 1900 << endl;
+					cout << "\t\t\t Time: " << (tPtr->tm_hour) << ":" << (tPtr->tm_min) << endl;
+					cout << "\t\t\t ##########################################################################################################################" << endl;
+					cout << "\t\t\t #" << "\t\t\t\t\t\t Enigma System\t\t\t\t\t\t  #" << endl;
+					cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
+					cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
+					cout << "\t\t\t  Ingrese una opcion correcta " << endl;
+					system("cls");
+					goto ADMINSCREEN_ONE;
+					break;
+				}
+			}
+
+			cout << endl;
+			system("pause");
+			break;
+		}
+	}
+
 	void Run() {
 		int inicioSesionOpcion = 0;
 
@@ -169,12 +202,15 @@ public:
 		generar->inicializarCuentas(LSCuenta);
 		int op;
 		bienvenida(tPtr);
+
+		INICIOSESIONVISTA:
+
 		while (true) {
 			system("cls");
-			INICIOSESIONVISTA:inicioPantalla(tPtr, inicioSesionOpcion);
+			inicioPantalla(tPtr, inicioSesionOpcion);
 			system("cls");
 
-			manejarOpcion(inicioSesionOpcion);
+			manejarOpcion(tPtr, inicioSesionOpcion);
 		};
 
 	}
