@@ -171,14 +171,14 @@ public:
 	}
 
 	Nodo<T>* getNodo(int pos) {
-		if (pos >= 0 && pos < lon) {
-			Nodo<T>* nodo = ini;
-			for (int i = 0; i < pos; i++) {
-				nodo = nodo->sig;
+		if (pos >= 0 && pos < lon) { //3 + MAX(2+5n, 0) = 5n + 5
+			Nodo<T>* nodo = ini; // 1
+			for (int i = 0; i < pos; i++) { //1 + n(1 + INTERNO + 2) = 1 + 5n
+				nodo = nodo->sig; //2
 			}
 			return nodo;
 		}
-		else {
+		else { // 0
 			return nullptr;
 		}
 	}

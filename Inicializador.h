@@ -19,17 +19,31 @@ public:
 	void inicializarCuentas(ListaSimple<Cuenta*>* lista) {
 		lector.open("BD/Cuentas.txt", ios::in);
 		if (lector.is_open()) {
-			string nom, ape, cor, con;
-			string id;
+			//string nom, ape, cor, con;
+			//string id;
+			//id, cargo, apellido, correo, contraseña, clave caesar, tipocorreo, fecha
+			string id, ape, cor, con, cla, tipo, pais, fecha;
 
 			while (!lector.eof()) {
+				/*
 				getline(lector, nom, ',');
 				if (nom == "") break;
 				getline(lector, ape, ',');
 				getline(lector, cor, ',');
 				getline(lector, con, ',');
 				getline(lector, id);
-				lista->pushBack(new Cuenta(nom, ape, cor, con, stoi(id)));
+				*/
+				getline(lector, id, ',');
+				if (id == "") break;
+				getline(lector, tipo, ',');
+				getline(lector, pais, ',');
+				getline(lector, ape, ',');
+				getline(lector, cor, ',');
+				getline(lector, con, ',');
+				getline(lector, cla);
+				//getline(lector, fecha);
+				//lista->pushBack(new Cuenta(nom, ape, cor, con, stoi(id)));
+				lista->pushBack(new Cuenta(stoi(id), ape, cor, con, cla, tipo, pais));
 			}
 			lector.close();
 		}
@@ -39,6 +53,7 @@ public:
 		lector.open(direc, ios::in);
 		if (lector.is_open()) {
 			string tipo, aut, corA, asu, mens;
+			
 
 			while (!lector.eof()) {
 				getline(lector, tipo, '|');

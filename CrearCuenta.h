@@ -39,14 +39,14 @@ public:
 
 	// }
 
-	bool esCuentaValida(string nombre, string apellido, string correo, ListaSimple<Cuenta*>* lista){
+	bool esCuentaValida(string apellido, string correo, ListaSimple<Cuenta*>* lista){
 
 		bool esValido = true;
 
-		if(!esNombreValido(nombre)) {
+		/*if (!esNombreValido(nombre)) {
 			cout << "\nEl nombre debe tener por lo menos 3 caracteres";
 			esValido = false;
-		}
+		}*/
 		if(!esApellidoValido(apellido)) {
 			cout << "\nEl apellido debe tener por lo menos 2 caracteres.";
 			esValido = false;
@@ -69,15 +69,19 @@ public:
 
 
 	void crearCuentaCompleta(ListaSimple<Cuenta*>* lista) {
-		string nombre, apellido, correo, contra;
-		cout << "Nombre: "; cin >> nombre;
+		//string nombre, apellido, correo, contra;
+		string apellido, correo, contra, cifrado, tipo, pais;
+		//cout << "Nombre: "; cin >> nombre;
 		cout << "Apellido: "; cin >> apellido;
 		cout << "Correo: "; cin >> correo;
 		cout << "Password: "; cin >> contra;
+		cout << "Cifrado a usar: "; cin >> cifrado;
+		cout << "Tipo: "; cin >> tipo;
+		cout << "Pais: "; cin >> pais;
 
-		if (esCuentaValida(nombre, apellido, correo, lista)) {
-			lista->pushBack(new Cuenta(nombre, apellido, correo, contra, lista->getLon()));
-			guardar.guardarCuenta(nombre + "," + apellido + "," + correo + "," + contra + "," + to_string(lista->getLon()-1), lista->getLon()-1);
+		if (esCuentaValida(apellido, correo, lista)) {
+			lista->pushBack(new Cuenta(lista->getLon(), apellido, correo, contra, cifrado, tipo, pais));
+			guardar.guardarCuenta(to_string(lista->getLon() - 1) + "," + tipo + "," + pais + "," + apellido + "," + correo + "," + contra + "," + cifrado, lista->getLon() - 1);
 			cout << "\nLa cuenta fue creada y guardada!\n";
 		}
 	}
