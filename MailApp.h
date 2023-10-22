@@ -1,5 +1,6 @@
 #pragma once
 #pragma warning(disable:4996) //Deshabilita el error _CRT_SECURE_NO_WARNINGS debido al uso de localtime() en ciertos sistemas
+#include "Admin.h"
 #include "Cuenta.h"
 #include "Correo.h"
 #include "ListaCuenta.h"

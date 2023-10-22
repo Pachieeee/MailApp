@@ -61,7 +61,7 @@ public:
 			
 			cout << "\ns: Pagina siguiente (" << pag + 1 << ")";
 			cout << "\nx: Volver al menu\n";
-			charac = _getch();
+			// charac = kbhit();
 			//Pagina anterior
 			if (tolower(charac) == 'a' && pag > 0) {
 				pag--;
