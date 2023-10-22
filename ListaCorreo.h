@@ -63,11 +63,7 @@ public:
 		delete ini;
 		ini = NULL;
 	}
-
 	int getLon() { return this->lon; }
-	/*static bool compararAutores(const Contenido& autorA, const Contenido& autorB) {
-		return compararOrdenAlfabetico(autorA.getAutor()[0], autorB.getAutor()[0]);
-	}*/
 
 	void mostrar() {
 		Nodo<T>* nodo = ini;
@@ -84,6 +80,25 @@ public:
 		} while (nodo != nullptr);
 		cout << endl;
 	}
+
+	void mostrar(string tipo) {
+		Nodo<T>* nodo = ini;
+		if (lon == 0) {
+			cout << "No hay correos disponibles\n";
+			return;
+		}
+		do {
+			Contenido* contenido = (Contenido*)(nodo->elem);
+			if (contenido->getTipo() == tipo)
+			{
+				contenido->getContenido();
+				cout << "\n===================================================================================\n";
+			}
+			nodo = nodo->sig;
+		} while (nodo != nullptr);
+		cout << endl;
+	}
+
 	void pushFront(T v) {
 		Nodo<T>* nodo = new Nodo<T>(v);
 
