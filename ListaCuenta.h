@@ -121,7 +121,7 @@ public:
 		do {
 			cout << "\nUsuario " << cont << ": ";
 			Cuenta* cta = (Cuenta*)(nodo->elem);
-			cout << cta->getNombre() << ", " << cta->getApellido() << ", " << cta->getCorreo() << ", " << cta->getID();
+			cout << cta->getTipo() << ", " << cta->getApellido() << ", " << cta->getCorreo() << ", " << cta->getID();
 			nodo = nodo->sig;
 			cont++;
 		} while (nodo != nullptr);
@@ -147,7 +147,7 @@ public:
 			Cuenta* cuentaNodo = (Cuenta*)(nodo->elem);
 			if (verificar(cuentaNodo->getCorreo(), cuentaNodo->getContra(), correo, contra)) { 
 				cout << "\nInicio de sesion correcto! Registrado como ";
-				cout << cuentaNodo->getNombre() << " " << cuentaNodo->getApellido();
+				cout << cuentaNodo->getPais() << ", " << cuentaNodo->getTipo() << " " << cuentaNodo->getApellido();
 				return cuentaNodo->getID();
 			}
 			nodo = nodo->sig;

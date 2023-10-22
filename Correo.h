@@ -97,10 +97,10 @@ public:
 		}
 	}
 
-	int menuCliente(string nombre) {
+	int menuCliente(string apellido) {
 		int op;
 		system("cls");
-		cout << "Bienvenido, " << nombre;
+		cout << "Bienvenido, " << apellido;
 		cout << "\n1. Ver inbox principal";
 		cout << "\n2. Ver inbox fijado";
 		cout << "\n3. Ver inbox spam";
@@ -113,11 +113,11 @@ public:
 		return op;
 	}
 
-	void manejarCorreo(string nombre) {
+	void manejarCorreo(string apellido) {
 		int op;
 		inbox->iniciarBandeja();
 		do {
-			op = menuCliente(nombre);
+			op = menuCliente(apellido);
 			manejarOpc(op);
 			system("pause");
 		} while (op > 0 && op < 8);
