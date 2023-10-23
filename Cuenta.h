@@ -33,7 +33,6 @@ public:
 		this->pais = pais;
 	}
 	
-
 	int getID() { return this->ID; }
 	string getCargo() { return this -> cargo; }
 	string getApellido() { return this->apellido; }

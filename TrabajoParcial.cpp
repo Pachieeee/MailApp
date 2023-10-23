@@ -5,7 +5,8 @@
 #include <stack>
 // #include <conio.h>
 #include <sys/stat.h> // Para mkdir en sistemas Unix/Linux
-#include <regex>
+#include <regex>s
+#include <sstream>	//stream
 
 using namespace std;
 
