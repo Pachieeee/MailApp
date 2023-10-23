@@ -21,29 +21,23 @@ public:
 		if (lector.is_open()) {
 			//string nom, ape, cor, con;
 			//string id;
-			//id, cargo, apellido, correo, contraseña, clave caesar, tipocorreo, fecha
-			string id, ape, cor, con, cla, tipo, pais, fecha;
+			//id, cargo, apellido, correo, contraseï¿½a, clave caesar, tipocorreo, fecha
+			// string id, ape, cor, con, cla, tipo, pais, fecha;
+			string id, cargo, apellido, correo, contrasena, claveCesar, esAliadoPalestino, pais;
 
 			while (!lector.eof()) {
-				/*
-				getline(lector, nom, ',');
-				if (nom == "") break;
-				getline(lector, ape, ',');
-				getline(lector, cor, ',');
-				getline(lector, con, ',');
-				getline(lector, id);
-				*/
 				getline(lector, id, ',');
 				if (id == "") break;
-				getline(lector, tipo, ',');
-				getline(lector, pais, ',');
-				getline(lector, ape, ',');
-				getline(lector, cor, ',');
-				getline(lector, con, ',');
-				getline(lector, cla);
+				getline(lector, cargo, ',');
+				getline(lector, apellido, ',');
+				getline(lector, correo, ',');
+				getline(lector, contrasena, ',');
+				getline(lector, claveCesar, ',');
+				getline(lector, esAliadoPalestino);
+				getline(lector, pais);
 				//getline(lector, fecha);
 				//lista->pushBack(new Cuenta(nom, ape, cor, con, stoi(id)));
-				lista->pushBack(new Cuenta(stoi(id), ape, cor, con, cla, tipo, pais));
+				lista->pushBack(new Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), true, pais));
 			}
 			lector.close();
 		}

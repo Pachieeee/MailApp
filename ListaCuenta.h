@@ -56,6 +56,7 @@ public:
 		nodo = NULL;
 		++lon;
 	}
+
 	void pushPos(T val, int pos) {
 		if (pos > lon) return;
 		if (pos == 0) pushFront(val);
@@ -132,7 +133,7 @@ public:
 			pila.pop();
 			cout << "ID: ";
 			Cuenta* cta = (Cuenta*)(nodo->elem);
-			cout << cta->getID() << ", " << cta->getNombre() << ", " << cta->getApellido() << ", " << cta->getCorreo() << endl;
+			cout << cta->getID() << ", " << cta->getPais() << ", " << cta->getCargo() << ", "  << cta->getApellido() << ", " << cta->getCorreo() << endl;
 		}
 		cout << endl;
 	}
@@ -186,7 +187,7 @@ public:
 		}
 
 		if (largest != i) {
-			swapNodes(findByValue(arr[i]), findByValue(arr[largest])); // Agrega esta función para encontrar el nodo por su valor
+			swapNodes(findByValue(arr[i]), findByValue(arr[largest]));
 			swap(arr[i], arr[largest]);
 			heapify(arr, n, largest);
 		}
@@ -203,7 +204,7 @@ public:
 
 		for (int i = n - 1; i > 0; i--) {
 			swap(arr[0], arr[i]);
-			swapNodes(findByValue(arr[0]), findByValue(arr[i])); // Agrega esta función para encontrar el nodo por su valor
+			swapNodes(findByValue(arr[0]), findByValue(arr[i]));
 			heapify(arr, i, 0);
 		}
 
@@ -235,9 +236,9 @@ public:
 		NodoS<T>* nodo = ini;
 		while (nodo != nullptr) {
 			Cuenta* cuentaNodo = (Cuenta*)(nodo->elem);
-			if (verificar(cuentaNodo->getCorreo(), cuentaNodo->getContra(), correo, contra)) { 
+			if (verificar(cuentaNodo->getCorreo(), cuentaNodo->getContrasena(), correo, contra)) { 
 				cout << "\nInicio de sesion correcto! Registrado como ";
-				cout << cuentaNodo->getPais() << ", " << cuentaNodo->getTipo() << " " << cuentaNodo->getApellido();
+				cout << cuentaNodo->getPais() << ", " << cuentaNodo->getCargo() << " " << cuentaNodo->getApellido();
 				return cuentaNodo->getID();
 			}
 			nodo = nodo->sig;
