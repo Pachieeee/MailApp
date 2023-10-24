@@ -4,8 +4,11 @@
 #include "ListaCuenta.h"
 #include "ListaCorreo.h"
 #include "HashTableA_usuarios.h"
+#include <sys/stat.h>
 
 #define nombre_archivo "usuarios.csv"
+
+struct stat buffer;
 
 class Inicializador
 {
@@ -16,8 +19,8 @@ public:
 	Inicializador() {
 		CrearCarpeta();
 	}
-	void CrearCarpeta(string nombreCarpeta = "BD") {
-		int resultado = system(("mkdir " + nombreCarpeta).c_str());
+	void CrearCarpeta() {
+		if (stat("BD", &buffer)) system("mkdir BD");
 	}
 
 	void inicializarCuentas(ListaSimple<Cuenta*>* lista) {
@@ -33,9 +36,9 @@ public:
 				getline(lector, correo, ',');
 				getline(lector, contrasena, ',');
 				getline(lector, claveCesar, ',');
-				getline(lector, esAliadoPalestino);
+				getline(lector, esAliadoPalestino, ',');
 				getline(lector, pais);
-				lista->pushBack(new Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), true, pais));
+				lista->pushBack(new Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), stoi(esAliadoPalestino), pais));
 			}
 			lector.close();
 		}

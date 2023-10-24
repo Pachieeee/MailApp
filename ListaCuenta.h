@@ -133,7 +133,7 @@ public:
 			pila.pop();
 			cout << "ID: ";
 			Cuenta* cta = (Cuenta*)(nodo->elem);
-			cout << cta->getID() << ", " << cta->getPais() << ", " << cta->getCargo() << ", "  << cta->getApellido() << ", " << cta->getCorreo() << endl;
+			cout << cta->getID() << ", " << cta->getPais() << ", " << cta->getCargo() << ", "  << cta->getApellido() << ", " << cta->getCorreo() << ", " << cta->getEsAliadoPalestino() << endl;
 		}
 		cout << endl;
 	}

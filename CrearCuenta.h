@@ -52,6 +52,11 @@ public:
 		return esValido;
 	}
 
+	bool compAliadoPalestino(string correo) {
+		regex patronCorreoElectronico("^[a-zA-Z0-9._%+-]+@palestina.mil");
+		if (regex_match(correo, patronCorreoElectronico)) return true;
+		else return false;
+	}
 
 	void crearCuentaCompleta(ListaSimple<Cuenta*>* lista) {
 		string cargo, apellido, correo, contrasena, pais;
@@ -62,10 +67,11 @@ public:
 		cout << "Apellido: "; cin >> apellido;
 		cout << "Correo: "; cin >> correo;
 		cout << "Contrasena: "; cin >> contrasena;
-
+		esAliadoPalestino = compAliadoPalestino(correo);
 		if (esCuentaValida(apellido, correo, lista)) {
 			lista->pushBack(new Cuenta(lista->getLon(), cargo, apellido, correo, contrasena, claveCesar, esAliadoPalestino, pais));
-			guardar.guardarCuenta(to_string(lista->getLon() - 1) + "," + cargo + "," + apellido + "," + correo + "," + to_string(claveCesar) + "," + pais , lista->getLon() - 1);
+			guardar.guardarCuenta(to_string(lista->getLon() - 1) + "," + cargo + "," + apellido + "," + correo + "," + contrasena + "," + to_string(claveCesar) + "," + to_string(esAliadoPalestino) + "," + pais , lista->getLon() - 1);
+			// 0,Coronel,Ali,ali@palestina.mil,pass,123,1,Iran
 			cout << "\nLa cuenta fue creada y guardada!\n";
 		}
 	}
