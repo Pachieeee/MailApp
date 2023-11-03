@@ -58,21 +58,35 @@ public:
 		else return false;
 	}
 
-	void crearCuentaCompleta(ListaSimple<Cuenta*>* lista) {
+	string obtenerFechaActual() {
+		time_t t = time(nullptr);
+		tm* now = localtime(&t);
+
+		string fechaActual = to_string(now->tm_mday) + "/" + to_string(now->tm_mon + 1) + "/" + to_string(now->tm_year + 1900);
+
+		cout << "Fecha actual: " << fechaActual << endl;
+		return fechaActual;
+	}
+
+
+	void crearCuentaCompleta(ListaSimple<Cuenta*>* lista, tm* tPtr) {
 		string cargo, apellido, correo, contrasena, pais;
 		int  claveCesar = 5;
-		bool esAliadoPalestino = false;
+		string esAliadoPalestino = "NO";
+		string fechaCreacion = obtenerFechaActual();
 		cout << "Pais: "; cin >> pais;
 		cout << "Cargo: "; cin >> cargo;
 		cout << "Apellido: "; cin >> apellido;
 		cout << "Correo: "; cin >> correo;
 		cout << "Contrasena: "; cin >> contrasena;
-		esAliadoPalestino = compAliadoPalestino(correo);
+		if(compAliadoPalestino(correo)) esAliadoPalestino = "SI";
+
 		if (esCuentaValida(apellido, correo, lista)) {
-			lista->pushBack(new Cuenta(lista->getLon(), cargo, apellido, correo, contrasena, claveCesar, esAliadoPalestino, pais));
-			guardar.guardarCuenta(to_string(lista->getLon() - 1) + "," + cargo + "," + apellido + "," + correo + "," + contrasena + "," + to_string(claveCesar) + "," + to_string(esAliadoPalestino) + "," + pais , lista->getLon() - 1);
+			lista->pushBack(new Cuenta(lista->getLon(), cargo, apellido, correo, contrasena, claveCesar, esAliadoPalestino, pais, fechaCreacion));
+			guardar.guardarCuenta(to_string(lista->getLon() - 1) + "," + cargo + "," + apellido + "," + correo + "," + contrasena + "," + to_string(claveCesar) + "," + esAliadoPalestino + "," + pais + ", " + fechaCreacion , lista->getLon() - 1);
 			// 0,Coronel,Ali,ali@palestina.mil,pass,123,1,Iran
 			cout << "\nLa cuenta fue creada y guardada!\n";
 		}
+
 	}
 };

@@ -150,7 +150,7 @@ public:
 			iniciaSesion();
 			break;
 		case 2:
-			creador->crearCuentaCompleta(LSCuenta);
+			creador->crearCuentaCompleta(LSCuenta, tPtr);
 			system("pause");
 			break;
 		case 3:

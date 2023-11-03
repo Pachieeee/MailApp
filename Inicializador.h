@@ -26,7 +26,7 @@ public:
 	void inicializarCuentas(ListaSimple<Cuenta*>* lista) {
 		lector.open("BD/Cuentas.txt", ios::in);
 		if (lector.is_open()) {
-			string id, cargo, apellido, correo, contrasena, claveCesar, esAliadoPalestino, pais;
+			string id, cargo, apellido, correo, contrasena, claveCesar, esAliadoPalestino, pais, fechaCreacion;
 
 			while (!lector.eof()) {
 				getline(lector, id, ',');
@@ -38,7 +38,8 @@ public:
 				getline(lector, claveCesar, ',');
 				getline(lector, esAliadoPalestino, ',');
 				getline(lector, pais);
-				lista->pushBack(new Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), stoi(esAliadoPalestino), pais));
+				getline(lector, fechaCreacion);
+				lista->pushBack(new Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), esAliadoPalestino, pais, fechaCreacion));
 			}
 			lector.close();
 		}

@@ -9,8 +9,9 @@ private:
 	string correo;
 	string contrasena;
 	int claveCesar;
-	bool esAliadoPalestino;
+	string esAliadoPalestino;
 	string pais;
+	string fechaCreacion;
 public:
 	Cuenta() {
 		this->ID = 0;
@@ -19,10 +20,11 @@ public:
 		this->correo = "";
 		this->contrasena = "";
 		this->claveCesar = 0;
-		this->esAliadoPalestino = false;
+		this->esAliadoPalestino = "";
 		this->pais = "";
+		this->fechaCreacion= "";
 	}
-	Cuenta(int ID, string cargo, string apellido, string correo, string contrasena, int claveCesar, bool esAliadoPalestino, string pais) {
+	Cuenta(int ID, string cargo, string apellido, string correo, string contrasena, int claveCesar, string esAliadoPalestino, string pais, string fechaCreacion) {
 		this->ID = ID;
 		this->cargo = cargo;
 		this->apellido = apellido;
@@ -31,6 +33,7 @@ public:
 		this->claveCesar = claveCesar;
 		this->esAliadoPalestino = esAliadoPalestino;
 		this->pais = pais;
+		this->fechaCreacion=fechaCreacion;
 	}
 	
 	int getID() { return this->ID; }
@@ -39,6 +42,7 @@ public:
 	string getCorreo() { return this->correo; }
 	string getContrasena() { return this->contrasena; }
 	int getClaveCesar() { return this->claveCesar; }
-	bool getEsAliadoPalestino() { return this->esAliadoPalestino; }
+	string getEsAliadoPalestino() { return this->esAliadoPalestino; }
 	string getPais() { return this->pais; }
+	string getFechaCreacion(){ return this-> fechaCreacion; }
 };
