@@ -24,60 +24,33 @@ public:
 	}
 
 	void inicializarCuentas(ListaSimple<Cuenta*>* lista) {
-		lector.open("BD/Cuentas.txt", ios::in);
+		lector.open("BD/Cuentas.csv", ios::in);
+		if (!lector.is_open())
+		{
+			cout << "Error: No se pudo abrir el archivo !!!" << endl;
+		}
+		char delimitador = ','; //Separador de cada columna de la lÃ­nea
+		HashTableA_usuarios ht = HashTableA_usuarios();
 		if (lector.is_open()) {
 			string id, cargo, apellido, correo, contrasena, claveCesar, esAliadoPalestino, pais, fechaCreacion;
-
 			while (!lector.eof()) {
-				getline(lector, id, ',');
+				getline(lector, id, delimitador);
 				if (id == "") break;
-				getline(lector, cargo, ',');
-				getline(lector, apellido, ',');
-				getline(lector, correo, ',');
-				getline(lector, contrasena, ',');
-				getline(lector, claveCesar, ',');
-				getline(lector, esAliadoPalestino, ',');
-				getline(lector, pais);
+				getline(lector, cargo, delimitador);
+				getline(lector, apellido, delimitador);
+				getline(lector, correo, delimitador);
+				getline(lector, contrasena, delimitador);
+				getline(lector, claveCesar, delimitador);
+				getline(lector, esAliadoPalestino, delimitador);
+				getline(lector, pais, delimitador);
 				getline(lector, fechaCreacion);
+				// Pendiente: Migrar la lista a Hash Table
 				lista->pushBack(new Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), esAliadoPalestino, pais, fechaCreacion));
+
+				ht.insert(Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), esAliadoPalestino, pais, fechaCreacion));		
 			}
 			lector.close();
 		}
-		// ------------------------------------------------
-		// ifstream archIN;
-		// archIN.open(nombre_archivo, ios::in); //Apertura
-
-		// if (!archIN.is_open())
-		// {
-		// 	cout << "Error: No se pudo abrir el archivo !!!" << endl;
-		// 	exit(1);
-		// }
-
-		// string linea;
-		// char delimitador = ','; //Separador de cada columna de la lÃ­nea
-
-		// // Encabezado: Leemos la primera lÃ­nea para descartarla, pues es el encabezado
-		// getline(archIN, linea);
-
-		// // Contenido: Leemos todas las lÃ­neas
-		// HashTableA_usuarios ht = HashTableA_usuarios();
-		
-		// while (getline(archIN, linea))
-		// {
-		// 	stringstream stream(linea); // Convertir la cadena a un stream
-
-		// 	string col1, col2, col3, col4;
-		// 	// Extraer todos los valores de esa fila [considerando 4 columans]
-		// 	getline(stream, col1, delimitador);
-		// 	getline(stream, col2, delimitador);
-		// 	getline(stream, col3, delimitador);
-		// 	getline(stream, col4, delimitador);
-
-		// 	ht.insert(Cuenta(col1, col2, col3, stoi(col4)));		
-		// }
-
-		// // Cerramos Archivo
-		// archIN.close();
 	}
 
 	void inicializarCorreo(ListaDoble<Contenido*>* bandeja, string direc) {

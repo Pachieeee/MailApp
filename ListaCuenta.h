@@ -127,13 +127,12 @@ public:
 			pila.push(nodo);
 			nodo = nodo->sig;
 		}
-
+		cout << "ID, Pais, Cargo, Apellido, Correo, Aliado Palestino?, Fecha de Creacion "<< endl;
 		while (!pila.empty()) {
 			nodo = pila.top();
 			pila.pop();
-			cout << "ID: ";
 			Cuenta* cta = (Cuenta*)(nodo->elem);
-			cout << cta->getID() << ", " << cta->getPais() << ", " << cta->getCargo() << ", "  << cta->getApellido() << ", " << cta->getCorreo() << ", " << cta->getEsAliadoPalestino() << cta->getFechaCreacion() << endl;
+			cout << cta->getID() << ", " << cta->getPais() << ", " << cta->getCargo() << ", "  << cta->getApellido() << ", " << cta->getCorreo() << ", " << cta->getEsAliadoPalestino() << ", " << cta->getFechaCreacion() << endl;
 		}
 		cout << endl;
 	}

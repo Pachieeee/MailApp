@@ -21,7 +21,7 @@ public:
 	void iniciarContenidoEnviado() {
 		cout << "\nCargando correo enviado...";
 		string direccion = "BD/" + to_string(idUsuario) + ".txt";
-		iniE.inicializarCorreo(enviado, direccion, "E");
+		iniE.inicializarCorreo(enviado, direccion);
 		cout << "Correo enviado cargado!";
 	}
 
