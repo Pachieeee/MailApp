@@ -3,6 +3,7 @@
 #include "Contenido.h"
 #include "ListaCuenta.h"
 #include "ListaCorreo.h"
+#include "ArbolBusqueda.h"
 #include "HashTableA_usuarios.h"
 #include <sys/stat.h>
 
@@ -74,28 +75,56 @@ public:
 		}
 	}
 
-	void inicializarBusqueda(ListaDoble<Contenido*>* bandeja, string direc, string obj, int filtro) {
-		lector.open(direc, ios::in);
-		if (lector.is_open()) {
-			string tipo, aut, corA, asu, mens;
+	//void inicializarBusqueda(ListaDoble<Contenido*>* bandeja, string direc, string obj, int filtro) {
+	//	lector.open(direc, ios::in);
+	//	if (lector.is_open()) {
+	//		string tipo, aut, corA, asu, mens;
 
+	//		while (!lector.eof()) {
+	//			getline(lector, tipo, '|');
+	//			getline(lector, aut, '|');
+	//			getline(lector, corA, '|');
+	//			getline(lector, asu, '|');
+	//			getline(lector, mens);
+	//			switch (filtro)
+	//			{
+	//			case 1:
+	//				if (aut == obj) {
+	//					bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens));
+	//				}
+	//				break;
+	//			case 2:
+	//				if (corA == obj) {
+	//					bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens));
+	//				}
+	//				break;
+	//			}
+	//		}
+	//		lector.close();
+	//	}
+	//}
+
+	void inicializarBusqueda(ArbolAVL<Contenido*>* busqueda, string direc,string obj, int filtro) {
+		lector.open(direc, ios::in);
+		char delimit = '|';
+		if (lector.is_open()) {
+			string tipo, autor, correoAutor, asunto, mensaje;
 			while (!lector.eof()) {
-				getline(lector, tipo, '|');
-				getline(lector, aut, '|');
-				getline(lector, corA, '|');
-				getline(lector, asu, '|');
-				getline(lector, mens);
+				getline(lector, tipo, delimit);
+				getline(lector, autor, delimit);
+				getline(lector, correoAutor, delimit);
+				getline(lector, asunto, delimit);
+				getline(lector, mensaje, delimit);
 				switch (filtro)
 				{
 				case 1:
-					if (aut == obj) {
-						bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens));
-					}
+					if (autor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, asunto, mensaje));
 					break;
 				case 2:
-					if (corA == obj) {
-						bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens));
-					}
+					if (correoAutor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, asunto, mensaje));
+					break;
+				case 3:
+					if (asunto == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, asunto, mensaje));
 					break;
 				}
 			}
