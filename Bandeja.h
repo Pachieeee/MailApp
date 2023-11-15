@@ -20,7 +20,7 @@ public:
 
 	void iniciarBandeja() {
 		cout << "\nCargando bandeja...";
-		string direccion = "BD/" + to_string(idUsuario) + ".txt";
+		string direccion = "BD/" + to_string(idUsuario) + ".csv";
 		iniBand.inicializarCorreo(bandeja, direccion);
 		cout << "Bandeja cargada!";
 	}

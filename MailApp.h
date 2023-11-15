@@ -102,7 +102,7 @@ public:
 		cout << "\t\t\t Hora: " << (tPtr->tm_hour) << ":" << (tPtr->tm_min) << endl;
 
 		cout << "\t\t\t ##########################################################################################################################" << endl;
-		cout << "\t\t\t #" << "\t\t\t\t\t\t INICIAR SESION\t\t\t\t\t\t  #" << endl;
+		cout << "\t\t\t #" << "\t\t\t\t\t\t INICIAR SESION\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
@@ -119,8 +119,8 @@ public:
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t    1) Iniciar sesion\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t    2) Crear una cuenta\t\t\t\t\t\t\t  #" << endl;
-		cout << "\t\t\t #" << "\t\t\t\t\t\t    3) Salir\t\t\t\t\t\t\t  #" << endl;
-		cout << "\t\t\t #" << "\t\t\t\t\t\t    0) Administrador\t\t\t\t\t\t\t\t  #" << endl;
+		cout << "\t\t\t #" << "\t\t\t\t\t\t    3) Salir\t\t\t\t\t\t\t\t  #" << endl;
+		cout << "\t\t\t #" << "\t\t\t\t\t\t    0) Administrador\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;

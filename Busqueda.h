@@ -5,7 +5,7 @@
 #include "Inicializador.h"
 
 void imprimir(Contenido* c) {
-	c->getResumen();
+	c->getContenido();
 }
 
 class Busqueda
@@ -32,7 +32,7 @@ public:
 	void busquedaPorFiltro(int filtro) {
 		cout << "Buscar: "; cin >> campoBusqueda;
 		cout << "\nCargando resultados de busqueda...";
-		string direccion = "BD/" + to_string(idUsuario) + ".txt";
+		string direccion = "BD/" + to_string(idUsuario) + ".csv";
 		iniT.inicializarBusqueda(busqueda, direccion, campoBusqueda, filtro);
 		cout << "\nResultados de busqueda cargados!\n";
 		busqueda->inOrden();
@@ -52,7 +52,7 @@ public:
 			cout << "\n1. Buscar mensajes por autor";
 			cout << "\n2. Buscar mensajes por direccion de correo";
 			cout << "\n3. Buscar mensajes por asunto";
-			cout << "\n4. Buscar mensajes por asunto";
+			cout << "\n4. Buscar mensajes por fecha";
 			cout << "\n0. Cancelar\n";
 			cout << "\nOpcion: "; cin >> filtro;
 			if (!filtro) break;
