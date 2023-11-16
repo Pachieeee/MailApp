@@ -16,6 +16,9 @@ class EnviarCorreoQueue{
         }
         void enqueue(){
             cout << "Enviar correo con cola!" << endl;
+            Correo *temp = new Correo();
+            char confirmation;
+            
 
         }
         void dequeue(){
