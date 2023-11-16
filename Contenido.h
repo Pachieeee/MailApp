@@ -12,6 +12,7 @@ private:
 	string correoAutor;
 	string asunto;
 	string mensaje;
+	string fechaEnvio;
 public:
 	Contenido() {
 		tipo = "";
@@ -19,13 +20,15 @@ public:
 		correoAutor = "";
 		asunto = "";
 		mensaje = "";
+		fechaEnvio = "";
 	}
-	Contenido(string tipo, string autor, string correo, string asunto, string mensaje) {
+	Contenido(string tipo, string autor, string correo, string asunto, string mensaje, string fecha) {
 		this->tipo = tipo;
 		this->autor = autor;
 		this->correoAutor = correo;
 		this->asunto = asunto;
 		this->mensaje = mensaje;
+		this->fechaEnvio = fecha;
 	}
 	string getAutor() { return this->autor; }
 	void getResumen() {
@@ -33,7 +36,7 @@ public:
 	}
 	string getTipo() { return this->tipo; }
 	void getContenido() {
-		cout << "   DE: " << autor << "(" << correoAutor << ")";
+		cout << "   DE: " << autor << "(" << correoAutor << ")" << fechaEnvio;
 		cout << "\n   ----------------------------------------------------------";
 		cout << "\n   ASUNTO:" << asunto;
 		cout << "\n   ----------------------------------------------------------";

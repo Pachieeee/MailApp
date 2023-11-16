@@ -3,6 +3,7 @@
 #include "Contenido.h"
 #include "ListaCuenta.h"
 #include "ListaCorreo.h"
+#include "ArbolBusqueda.h"
 #include "HashTableA_usuarios.h"
 #include <sys/stat.h>
 
@@ -56,7 +57,7 @@ public:
 	void inicializarCorreo(ListaDoble<Contenido*>* bandeja, string direc) {
 		lector.open(direc, ios::in);
 		if (lector.is_open()) {
-			string tipo, aut, corA, asu, mens;
+			string tipo, aut, corA, asu, mens, fecha;
 			
 
 			while (!lector.eof()) {
@@ -64,9 +65,10 @@ public:
 				getline(lector, aut, '|');
 				getline(lector, corA, '|');
 				getline(lector, asu, '|');
-				getline(lector, mens);
+				getline(lector, mens, '|');
+				getline(lector, fecha, '|');
 
-				bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens));
+				bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens, fecha));
 				if (tipo == "") break;
 				else
 					getline(lector, tipo);
@@ -74,28 +76,28 @@ public:
 		}
 	}
 
-	void inicializarBusqueda(ListaDoble<Contenido*>* bandeja, string direc, string obj, int filtro) {
+	void inicializarBusqueda(ArbolAVL<Contenido*>* busqueda, string direc,string obj, int filtro) {
 		lector.open(direc, ios::in);
+		char delimit = '|';
 		if (lector.is_open()) {
-			string tipo, aut, corA, asu, mens;
-
+			string tipo, autor, correoAutor, asunto, mensaje, fecha;
 			while (!lector.eof()) {
-				getline(lector, tipo, '|');
-				getline(lector, aut, '|');
-				getline(lector, corA, '|');
-				getline(lector, asu, '|');
-				getline(lector, mens);
+				getline(lector, tipo, delimit);
+				getline(lector, autor, delimit);
+				getline(lector, correoAutor, delimit);
+				getline(lector, asunto, delimit);
+				getline(lector, mensaje, delimit);
+				getline(lector, fecha, delimit);
 				switch (filtro)
 				{
 				case 1:
-					if (aut == obj) {
-						bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens));
-					}
+					if (autor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, asunto, mensaje, fecha));
 					break;
 				case 2:
-					if (corA == obj) {
-						bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens));
-					}
+					if (correoAutor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, asunto, mensaje, fecha));
+					break;
+				case 3:
+					if (asunto == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, asunto, mensaje, fecha));
 					break;
 				}
 			}
@@ -104,10 +106,10 @@ public:
 	}
 
 	void guardarCuenta(string line, int id) {
-		guardado.open("BD/Cuentas.txt", ios_base::app);
+		guardado.open("BD/Cuentas.csv", ios_base::app);
 		guardado << line << endl;
 		guardado.close();
-		string nuevoUsuario = "BD/" + to_string(id) + ".txt";
+		string nuevoUsuario = "BD/" + to_string(id) + ".csv";
 		guardado.open(nuevoUsuario, ios::out);
 		guardado.close();
 	}
