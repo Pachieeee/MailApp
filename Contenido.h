@@ -13,6 +13,8 @@ private:
 	string asunto;
 	string mensaje;
 	string fechaEnvio;
+	Contenido *next;
+	Contenido *prev;
 public:
 	Contenido() {
 		tipo = "";
@@ -31,10 +33,18 @@ public:
 		this->fechaEnvio = fecha;
 	}
 	string getAutor() { return this->autor; }
+	string getTipo() {return this-> tipo; }
+	string getCorreoAutor() {return this-> correoAutor;}
+	string getAsunto() {return this-> asunto; }
+	string getMensaje() {return this-> mensaje; }
+	string getFechaEnvio() { return this-> fechaEnvio; }
+
+	// ??
 	void getResumen() {
 		cout << autor << " - " << asunto;
 	}
 	string getTipo() { return this->tipo; }
+
 	void getContenido() {
 		cout << "   DE: " << autor << "(" << correoAutor << ")" << fechaEnvio;
 		cout << "\n   ----------------------------------------------------------";

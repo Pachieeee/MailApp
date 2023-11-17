@@ -91,7 +91,7 @@ public:
 		cout << endl;
 		system("pause");
 		inbox = new Correo(ID);
-		inbox->manejarCorreo(LSCuenta->getNodo(ID)->getApellido());
+		inbox->manejarCorreo(LSCuenta->getNodo(ID)->getApellido(), LSCuenta->getNodo(ID)->getCargo());
 		inbox->~Correo();
 	}
 
