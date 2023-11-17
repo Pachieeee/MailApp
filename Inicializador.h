@@ -30,25 +30,25 @@ public:
 		{
 			cout << "Error: No se pudo abrir el archivo !!!" << endl;
 		}
-		char delimitador = ','; //Separador de cada columna de la lÃ­nea
 		HashTableA_usuarios ht = HashTableA_usuarios();
 		if (lector.is_open()) {
+			string linea;
 			string id, cargo, apellido, correo, contrasena, claveCesar, esAliadoPalestino, pais, fechaCreacion;
-			while (!lector.eof()) {
-				getline(lector, id, delimitador);
-				if (id == "") break;
-				getline(lector, cargo, delimitador);
-				getline(lector, apellido, delimitador);
-				getline(lector, correo, delimitador);
-				getline(lector, contrasena, delimitador);
-				getline(lector, claveCesar, delimitador);
-				getline(lector, esAliadoPalestino, delimitador);
-				getline(lector, pais, delimitador);
-				getline(lector, fechaCreacion);
+
+			while (getline(lector, linea)) {
+				stringstream stream(linea);
+				getline(stream, id, ',');
+				getline(stream, cargo, ',');
+				getline(stream, apellido, ',');
+				getline(stream, correo, ',');
+				getline(stream, contrasena, ',');
+				getline(stream, claveCesar, ',');
+				getline(stream, esAliadoPalestino, ',');
+				getline(stream, pais, ',');
+				getline(stream, fechaCreacion, ',');
 				// Pendiente: Migrar la lista a Hash Table
 				lista->pushBack(new Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), esAliadoPalestino, pais, fechaCreacion));
-
-				ht.insert(Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), esAliadoPalestino, pais, fechaCreacion));		
+				ht.insert(Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), esAliadoPalestino, pais, fechaCreacion));
 			}
 			lector.close();
 		}
@@ -57,37 +57,36 @@ public:
 	void inicializarCorreo(ListaDoble<Contenido*>* bandeja, string direc) {
 		lector.open(direc, ios::in);
 		if (lector.is_open()) {
-			string tipo, aut, corA, asu, mens, fecha;
-			
+			string linea; //sstream
+			string tipo, aut, corA, asu, mens, fecha; //datos
 
-			while (!lector.eof()) {
-				getline(lector, tipo, '|');
-				getline(lector, aut, '|');
-				getline(lector, corA, '|');
-				getline(lector, asu, '|');
-				getline(lector, mens, '|');
-				getline(lector, fecha, '|');
-
+			while (getline(lector, linea)) {
+				stringstream stream(linea);
+				getline(stream, tipo, '|');
+				getline(stream, aut, '|');
+				getline(stream, corA, '|');
+				getline(stream, asu, '|');
+				getline(stream, mens, '|');
+				getline(stream, fecha, '|');
 				bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens, fecha));
-				if (tipo == "") break;
-				else
-					getline(lector, tipo);
 			}
+			lector.close();
 		}
 	}
 
 	void inicializarBusqueda(ArbolAVL<Contenido*>* busqueda, string direc,string obj, int filtro) {
 		lector.open(direc, ios::in);
-		char delimit = '|';
 		if (lector.is_open()) {
+			string linea;
 			string tipo, autor, correoAutor, asunto, mensaje, fecha;
-			while (!lector.eof()) {
-				getline(lector, tipo, delimit);
-				getline(lector, autor, delimit);
-				getline(lector, correoAutor, delimit);
-				getline(lector, asunto, delimit);
-				getline(lector, mensaje, delimit);
-				getline(lector, fecha, delimit);
+			while (getline(lector, linea)) {
+				stringstream stream(linea);
+				getline(stream, tipo, '|');
+				getline(stream, autor, '|');
+				getline(stream, correoAutor, '|');
+				getline(stream, asunto, '|');
+				getline(stream, mensaje, '|');
+				getline(stream, fecha, '|');
 				switch (filtro)
 				{
 				case 1:
