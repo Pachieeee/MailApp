@@ -17,23 +17,29 @@ public:
 		inbox->~Bandeja();
 		busqueda->~Busqueda();
 	}
-	void manejarPrincipal() {
-		char charac = '1';
+
+	void manejarBandeja(string band) {
+		char charac = '1'; //Opcion elegida por el usuario
 		int pag = 0; //La pagina en la que se encuentra el usuario (max 10 corres/pag)
-		int limite = 10; //El limite de correos que se puede presentar. (temp)
-		int ampliar = 11; //What the fuck is this
-		int cantCorreos = inbox->retornarCantCorreos("P");
+		int limite = 10; //El limite de correos que se puede presentar en la pagina (segun la pagina)
+		int ampliar = 11; //Amplia el correo especificado
+		int cantCorreos = inbox->retornarCantCorreos(band);
+		if (cantCorreos == 0) {
+			cout << "Esta seccion se encuentra vacia. Regresando al inbox.\n";
+			return;
+		}
+		inbox->iniciarContenido(band);
+
 		while (tolower(charac) != 'x') {
 			system("cls");
 			//revisar limite de los correos
 			limite = cantCorreos - pag * 10;
 			if (limite > 10) limite = 10;
-			inbox->mostrarContenidoPrincipal(pag, limite, ampliar);
-			
-			if (pag > 0) {
+			inbox->mostrarContenido(pag, limite, ampliar);
+			if (pag > 0) { //Mostrara solo si se encuentra en una pagina que no es primera
 				cout << "\na: Pagina anterior (" << pag - 1 << ")";
 			}
-			if (pag < cantCorreos / 10) {
+			else if (pag < cantCorreos / 10) { //Mostrara las paginas siguientes hasta el limite de correos
 				cout << "\ns: Pagina siguiente (" << pag + 1 << ")";
 			}
 			cout << "\nx: Volver al menu\n\n";
@@ -56,30 +62,29 @@ public:
 					ampliar = 9;
 			}
 		}
+		inbox->limpiarSeccion();
 	}
 	void manejarOpc(int op) {
 		switch (op) {
 		case 1:
 			system("cls");
-			//manejarPrincipal);
-			//inbox->mostrarBandeja('P');
-			manejarPrincipal();
+			manejarBandeja("P");
 			break;
 		case 2:
 			system("cls");
-			inbox->mostrarBandeja("F");
+			manejarBandeja("F");
 			break;
 		case 3:
 			system("cls");
-			inbox->mostrarBandeja("S");
+			manejarBandeja("S");
 			break;
 		case 4:
 			system("cls");
-			inbox->mostrarBandeja("E");
+			manejarBandeja("E");
 			break;
 		case 5:
 			system("cls");
-			inbox->mostrarBandeja("T");
+			manejarBandeja("T");
 			break;
 		case 6:
 			system("cls");;
