@@ -53,7 +53,7 @@ public:
 			lector.close();
 		}
 	}
-
+	/*
 	void inicializarCorreo(ListaDoble<Contenido*>* bandeja, string direc) {
 		lector.open(direc, ios::in);
 		if (lector.is_open()) {
@@ -69,6 +69,29 @@ public:
 				getline(stream, mens, '|');
 				getline(stream, fecha, '|');
 				bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens, fecha));
+			}
+			lector.close();
+		}
+	}
+	*/
+	void inicializarCorreo(ListaDoble<Contenido*>* bandeja, string direc, int idUsuario) {
+		lector.open("BD/Correos.csv", ios::in);
+		if (lector.is_open()) {
+			string linea; //sstream
+			string id, tipo, aut, corA, asu, mens, fecha; //datos
+
+			while (getline(lector, linea)) {
+				stringstream stream(linea);
+				getline(stream, id, '|');
+				if (stoi(id) == idUsuario) { //Si la ID corresponde al usuario
+					getline(stream, tipo, '|');
+					getline(stream, aut, '|');
+					getline(stream, corA, '|');
+					getline(stream, asu, '|');
+					getline(stream, mens, '|');
+					getline(stream, fecha, '|');
+					bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens, fecha));
+				}
 			}
 			lector.close();
 		}
@@ -107,9 +130,6 @@ public:
 	void guardarCuenta(string line, int id) {
 		guardado.open("BD/Cuentas.csv", ios_base::app);
 		guardado << line << endl;
-		guardado.close();
-		string nuevoUsuario = "BD/" + to_string(id) + ".csv";
-		guardado.open(nuevoUsuario, ios::out);
 		guardado.close();
 	}
 };

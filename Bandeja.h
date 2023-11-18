@@ -24,11 +24,10 @@ public:
 	void limpiarSeccion() {
 		seccion->~ListaSimpleS();
 	}
-
 	void iniciarBandeja() {
 		cout << "\nCargando bandeja...";
-		string direccion = "BD/" + to_string(idUsuario) + ".csv";
-		iniBand.inicializarCorreo(bandeja, direccion);
+		string direccion = "BD/Correos.csv";
+		iniBand.inicializarCorreo(bandeja, direccion, idUsuario);
 		cout << "Bandeja cargada!";
 	}
 
