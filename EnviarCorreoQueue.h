@@ -9,6 +9,7 @@ class EnviarCorreoQueue{
         int idUsuario;
         Contenido *front;
         Contenido *back;
+        Inicializador guardar;
     public:
         EnviarCorreoQueue(int id){
             front = back = nullptr;
@@ -38,7 +39,7 @@ class EnviarCorreoQueue{
             return fechaActual;
         }
 
-        void enqueue(){
+        void enqueue(int IDAutor){
             cout << "Enviar correo con cola!" << endl;
             Contenido *temp = new Contenido();
             char confirmation;
@@ -57,21 +58,22 @@ class EnviarCorreoQueue{
             cout << "\t\t\t\t ", cin >> confirmation;
             temp->next = NULL;
 
-
             if (confirmation == 'y' || confirmation == 'Y'){
                 if (isEmpty()){
-                    temp->prev = NULL;
-                    front = back = temp;
-                    cout << "\t\t\t\t Transaction Completed, Bill payment in process." << endl;
-                Contenido(tipo, autor, correoAutor, asunto, mensaje, fechaEnvio);
-                //Falta enviar mensaje
+                    front = back =  new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio);;
                 }
                 else{
-                    temp->prev = back;
-                    back->next = temp;
-                    back = temp;
-                    cout << "\t\t\t\t Transaction Completed, Bill payment in process." << endl;
+                    back->next = new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio);
+                    back->next->prev = back;
+                    back = back->next;
                 }
+            cout << "\t\t\t\t El mensaje se está enviando..." << endl;                
+            guardar.guardarCorreo(
+                IDAutor + "," + tipo + "," + autor + "," + correoAutor + "," + correoDestino + "," + asunto + "," + mensaje + "," + fechaEnvio 
+                ,
+                IDAutor
+            );
+			cout << "\nEl mensaje fue enviado!\n";
             } else if (confirmation == 'n' || confirmation == 'N'){
                 temp = NULL;
                 cout << "\t\t\t\t Mensaje cancelado." << endl;
@@ -82,11 +84,40 @@ class EnviarCorreoQueue{
             }
 
             cout << "\t\t\t\t Presiona cualquier tecla para regresar al menu." << endl;
-
         }
-
 
         void dequeue(){
-            
+            Contenido *temp = front;
+            if (isEmpty())
+            {
+                cout << "\t\t\t\t No hay ningún mensaje en cola." << endl;
+                cout << "\t\t\t\t Presiona cualquier tecla para regresar al menu." << endl;
+                return;
+            }
+            else if (front == back)
+            {
+                front = back = NULL;
+            }
+            else
+            {
+                front = front->next;
+            }
+            cout <<"\t\t\t\t No hay más mensajes." << endl;
+            delete temp;
+            cout << "\t\t\t\t Presiona cualquier tecla para regresar al menu." << endl;
         }
+
+        void displayFront(){
+            Contenido *temp = front;
+            cout << "Mensaje a punto de enviarse:";
+            if (isEmpty()){
+                cout << "\t\t\t\t Cola de mensajes vacia." << endl;
+                cout << "\t\t\t\t Presiona cualquier tecla para regresar al menu." << endl;
+                return;
+            }
+            temp->getContenido();
+            // temp = temp->next;
+            cout << "\t\t\t\t Presiona cualquier tecla para regresar al menu." << endl;
+        }
+
 };

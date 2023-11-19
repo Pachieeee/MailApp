@@ -59,13 +59,13 @@ public:
 			}
 		}
 	}
-	void manejarOpc(int op) {
+	void manejarOpc(int id, int op) {
 		switch (op) {
 		case 0:
 			system("cls");
 			cout << "Ingresaste a la funcion para enviar correo" << endl;
 			sendMail->iniciarContenidoEnviado();
-			sendMail->enqueue();
+			sendMail->enqueue(id);
 			break;
 		case 1:
 			system("cls");
@@ -122,12 +122,12 @@ public:
 		return op;
 	}
 
-	void manejarCorreo(string apellido, string cargo) {
+	void manejarCorreo(int id, string apellido, string cargo) {
 		int op;
 		inbox->iniciarBandeja();
 		do {
 			op = menuCliente(apellido, cargo);
-			manejarOpc(op);
+			manejarOpc(id, op);
 			system("pause");
 		} while (op > 0 && op < 8);
 	}

@@ -83,7 +83,9 @@ public:
 
 		if (esCuentaValida(apellido, correo, lista)) {
 			lista->pushBack(new Cuenta(lista->getLon(), cargo, apellido, correo, contrasena, claveCesar, esAliadoPalestino, pais, fechaCreacion));
-			guardar.guardarCuenta(to_string(lista->getLon() - 1) + "," + cargo + "," + apellido + "," + correo + "," + contrasena + "," + to_string(claveCesar) + "," + esAliadoPalestino + "," + pais + ", " + fechaCreacion , lista->getLon() - 1);
+			guardar.guardarCuenta(
+				to_string(lista->getLon() - 1) + "," + cargo + "," + apellido + "," + correo + "," + contrasena + "," + to_string(claveCesar) + "," + esAliadoPalestino + "," + pais + ", " + fechaCreacion , 
+				lista->getLon() - 1);
 			// 0,Coronel,Ali,ali@palestina.mil,pass,123,1,Iran
 			cout << "\nLa cuenta fue creada y guardada!\n";
 		}
