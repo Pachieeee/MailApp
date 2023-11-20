@@ -47,7 +47,6 @@ public:
 	void getResumen() {
 		cout << autor << " - " << asunto;
 	}
-	string getTipo() { return this->tipo; }
 
 	void getContenido() {
 		cout << "\n   DE: " << autor << "(" << correoAutor << ")" << fechaEnvio;

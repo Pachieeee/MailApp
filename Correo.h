@@ -8,8 +8,12 @@ private:
 	EnviarCorreoQueue* sendMail;
 	Bandeja* inbox;
 	Busqueda* busqueda;
+	ListaDoble<Contenido*>* LSCorreo;
+	Inicializador* generar;		
 public:
 	Correo() {
+		LSCorreo = new ListaDoble<Contenido*>();
+		generar = new Inicializador();
 	}
 	Correo(int ID) {
 		inbox = new Bandeja(ID);
@@ -59,13 +63,15 @@ public:
 			}
 		}
 	}
-	void manejarOpc(int id, int op) {
+	//  tipo, autor, correoAutor
+	// id, esAliadoPalestino, correoAutor, apellido, op)
+	void manejarOpc(int id, string esAliadoPalestino, string correoAutor, string apellido, int op) {
 		switch (op) {
 		case 0:
 			system("cls");
 			cout << "Ingresaste a la funcion para enviar correo" << endl;
-			sendMail->iniciarContenidoEnviado();
-			sendMail->enqueue(id);
+			// sendMail->iniciarContenidoEnviado();
+			sendMail->enqueue(id, esAliadoPalestino, correoAutor, apellido);
 			break;
 		case 1:
 			system("cls");
@@ -108,6 +114,7 @@ public:
 	int menuCliente(string apellido, string cargo) {
 		int op;
 		system("cls");
+		//! El cargo y apellido sale mal
 		cout << "\nBienvenido, " << cargo << " "<< apellido;
 		cout << "\n0. [Enviar mensaje]";
 		cout << "\n1. Ver inbox principal";
@@ -122,12 +129,14 @@ public:
 		return op;
 	}
 
-	void manejarCorreo(int id, string apellido, string cargo) {
+	void manejarCorreo(int id, string esAliadoPalestino, string correoAutor, string apellido, string cargo) {
 		int op;
 		inbox->iniciarBandeja();
+		//! Inicializar correos mal
+		// generar->inicializarCorreos(LSCorreo);
 		do {
 			op = menuCliente(apellido, cargo);
-			manejarOpc(id, op);
+			manejarOpc(id, esAliadoPalestino, correoAutor, apellido, op);
 			system("pause");
 		} while (op > 0 && op < 8);
 	}

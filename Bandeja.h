@@ -21,7 +21,9 @@ public:
 	void iniciarBandeja() {
 		cout << "\nCargando bandeja...";
 		string direccion = "BD/" + to_string(idUsuario) + ".csv";
-		iniBand.inicializarCorreo(bandeja, direccion);
+		// ! se quito la direccion, Pache
+		//! Problemas con la lista doble de bandeja
+		iniBand.inicializarCorreos(bandeja);
 		cout << "Bandeja cargada!";
 	}
 

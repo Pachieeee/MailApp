@@ -54,8 +54,8 @@ public:
 		}
 	}
 
-	void inicializarCorreo(ListaDoble<Contenido*>* bandeja, string direc) {
-		lector.open(direc, ios::in);
+	void inicializarCorreos(ListaDoble<Contenido*>* lista) {
+		lector.open("BD/Correos.csv", ios::in);
 		if (lector.is_open()) {
 			string tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio;
 			while (!lector.eof()) {
@@ -67,7 +67,7 @@ public:
 				getline(lector, mensaje, '|');
 				getline(lector, fechaEnvio, '|');
 
-				bandeja->pushBack(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
+				lista->pushBack(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
 				if (tipo == "") break;
 				else
 					getline(lector, tipo);
