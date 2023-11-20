@@ -52,7 +52,7 @@ public:
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\tBienvenido\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\ta\t\t\t\t\t\t\t  #" << endl;
-		cout << "\t\t\t #" << "\t\t\t\t\t\t\tMailApp\t\t\t\t\t\t\t\t  #" << endl;
+		cout << "\t\t\t #" << "\t\t\t\t\t\t\tEnigma\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
@@ -70,9 +70,9 @@ public:
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
-		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
-		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
-		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\tDesarrollado por sebastian(x2) y jhomar\t\t  #" << endl;
+		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\tAstuyauri, Jhomar\t\t  #" << endl;
+		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\tCabrera, Sebastian\t\t  #" << endl;
+		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\tPacheco, Sebastian\t\t  #" << endl;
 		cout << "\t\t\t ##########################################################################################################################" << endl;
 		cout << "\t\t\t ",system("pause");
 	}
