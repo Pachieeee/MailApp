@@ -73,7 +73,7 @@ public:
 			tm* tPtr = localtime(&t);
 			string fecha = to_string(tPtr->tm_mday) + "/" + to_string(tPtr->tm_mon + 1) + "/" + to_string(tPtr->tm_year + 1900);
 			//Datos
-			int id; char tipo; Cuenta* autor; string asunto, conten;
+			int id; char tipo; Cuenta* autor, *destino; string asunto, conten;
 			//Vectores
 			vector<char> tipos = { 'P', 'E', 'S', 'F', 'T' };
 			vector<string> asuntos = { "Informacion Confidencial", "Fecha de reunion establecida", "URGENTE", "Revisar cuanto antes",
@@ -84,11 +84,12 @@ public:
 
 			for (int i = 0; i < 10000; i++) {
 				autor = LSCuenta->getNodo(rand() % cant);
+				destino = LSCuenta->getNodo(rand() % cant);
 				id = rand() % cant;
 				tipo = tipos[rand() % tipos.size()];
 				asunto = asuntos[rand() % asuntos.size()];
 				conten = contenido[rand() % contenido.size()];
-				guardado << id << '|' << tipo << "|" << autor->getCargo() << " " << autor->getApellido() << "|" << autor->getCorreo() << "|" << asunto << "|" << conten << "|" << fecha << "\n";
+				guardado << id << '|' << tipo << "|" << autor->getCargo() << " " << autor->getApellido() << "|" << autor->getCorreo() << "|" << destino->getCorreo() << "|" << asunto << "|" << conten << "|" << fecha << "\n";
 			}
 			guardado.close();
 		}
