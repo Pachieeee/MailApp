@@ -123,19 +123,19 @@ public:
 		lector.open("BD/Correos.csv", ios::in);
 		if (lector.is_open()) {
 			string linea; //sstream
-			string tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio;
-
+			string id, tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio;
+			char delimit = '|';
 			while (getline(lector, linea)) {
 				stringstream stream(linea);
-				getline(stream, id, '|');
+				getline(stream, id, delimit);
 				if (stoi(id) == idUsuario) { //Si la ID corresponde al usuario
-					getline(stream, tipo, '|');
-					getline(stream, autor, '|');
-					getline(stream, correoAutor, '|');
-					getline(stream, correoDestino, '|');
-					getline(stream, asunto, '|');
-					getline(stream, mensaje, '|');
-          getline(stream, fechaEnvio, '|');
+					getline(stream, tipo, delimit);
+					getline(stream, autor, delimit);
+					getline(stream, correoAutor, delimit);
+					getline(stream, correoDestino, delimit);
+					getline(stream, asunto, delimit);
+					getline(stream, mensaje, delimit);
+            getline(stream, fechaEnvio, delimit);
 					bandeja->pushBack(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
 				}
 			}
@@ -147,6 +147,7 @@ public:
 		lector.open(direc, ios::in);
 		if (lector.is_open()) {
 			string tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio;
+			char delimit = '|';
 			while (!lector.eof()) {
 				getline(lector, tipo, delimit);
 				getline(lector, autor, delimit);
