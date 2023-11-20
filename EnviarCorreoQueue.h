@@ -1,5 +1,7 @@
 #include "Correo.h"
 #include "Contenido.h"
+#include <fstream>
+#include <sstream>
 #include "Inicializador.h"
 
 class EnviarCorreoQueue{
@@ -40,11 +42,11 @@ class EnviarCorreoQueue{
         // }
 
         string obtenerTipoCorreo(string esAliadoPalestino){
-            if (esAliadoPalestino == "NO") return "Externo";
-            else return "Interno";
+            if (esAliadoPalestino == "NO") return "S";
+            else return "P";
         }
 
-        void enqueue(int IDAutor, string esAliadoPalestino, string correoAutor, string apellidoAutor){
+        void enqueue(int idAutor, string esAliadoPalestino, string correoAutor, string apellidoAutor){
             cout << "Enviar correo con cola!" << endl;
             Contenido *temp = new Contenido();
             string correoDestino, asunto, mensaje, confirmation;
@@ -57,15 +59,15 @@ class EnviarCorreoQueue{
             cout << "\t\t\t\t----------" << endl;
 
             cout << "\t\t\t\t Asunto: ";
-            cin.ignore(); // Ignorar el carácter de nueva línea pendiente en el búfer
+            //cin.ignore(); // Ignorar el carácter de nueva línea pendiente en el búfer
             getline(cin, asunto); // Utilizar getline para leer toda la línea, incluyendo espacios
 
             cout << "\t\t\t\t Mensaje: ";
-            cin.ignore(); // Ignorar el carácter de nueva línea pendiente en el búfer
+            //cin.ignore(); // Ignorar el carácter de nueva línea pendiente en el búfer
             getline(cin, mensaje); // Utilizar getline para leer toda la línea, incluyendo espacios
             cout << "\t\t\t\t----------" << endl;
             cout << "\t\t\t\t Presiona 'Y' para enviar, o 'N' para cancelar" << endl;
-            cin.ignore(); // Ignorar el carácter de nueva línea pendiente en el búfer
+            //cin.ignore(); // Ignorar el carácter de nueva línea pendiente en el búfer
             getline(cin, confirmation); // Utilizar getline para leer toda la línea, incluyendo espacios            temp->next = NULL;
             confirmation.erase(confirmation.find_last_not_of(" \n\r\t") + 1); // Eliminar espacios y nueva línea al final
 
@@ -79,15 +81,36 @@ class EnviarCorreoQueue{
             //     back->next->prev = back;
             //     back = back->next;
             // }
-            cout << "\t\t\t\t El mensaje se está enviando..." << endl;                
-            cout << to_string(IDAutor) + "," + tipo + "," + apellidoAutor + "," + correoAutor + "," + correoDestino + "," + asunto + "," + mensaje + "," + fechaEnvio << endl;
+            ifstream buscarID;
+            int idDestino;
+            buscarID.open("BD/Cuentas.csv", ios::in);
+            if (buscarID.is_open()) {
+                string linea;
+                string id, cargo, apellido, correo;
 
+                while (getline(buscarID, linea)) {
+                    stringstream stream(linea);
+                    getline(stream, id, ',');
+                    getline(stream, cargo, ',');
+                    getline(stream, apellido, ',');
+                    getline(stream, correo, ',');
+
+                    if (correo == correoDestino) {
+                        idDestino = stoi(id);
+                        break;
+                    }
+                }
+            }
+            cout << "\t\t\t\t El mensaje se está enviando..." << endl;
+            string line = to_string(idDestino) + "|" + tipo + "|" + apellidoAutor + "|" + correoAutor + "|" + correoDestino + "|" + asunto + "|" + mensaje + "|" + fechaEnvio;
+            cout << line;
+
+            ofstream test;
+            test.open("BD/Correos.csv", ios::app);
             //! doesnt work u.u
-            guardar.guardarCorreo(
-                to_string(IDAutor) + "," + tipo + "," + apellidoAutor + "," + correoAutor + "," + correoDestino + "," + asunto + "," + mensaje + "," + fechaEnvio
-                ,
-                IDAutor
-            );
+            test << line << endl;
+            test.close();
+            //guardar.guardarCorreo(line,IDAutor);
             cout << "\nEl mensaje fue enviado!\n";
 
             // if (confirmation == "y" || confirmation == "Y"){

@@ -16,9 +16,11 @@ class Inicializador
 private:
 	ifstream lector;
 	ofstream guardado;
+	ofstream guardaCorreo;
 public:
 	Inicializador() {
 		CrearCarpeta();
+		guardaCorreo.open("BD/Correos.csv", ios_base::app);
 	}
 	void CrearCarpeta() {
 		if (stat("BD", &buffer)) system("mkdir BD");
@@ -88,6 +90,7 @@ public:
 				conten = contenido[rand() % contenido.size()];
 				guardado << id << '|' << tipo << "|" << autor->getCargo() << " " << autor->getApellido() << "|" << autor->getCorreo() << "|" << asunto << "|" << conten << "|" << fecha << "\n";
 			}
+			guardado.close();
 		}
 	}
 	void inicializarCuentas(ListaSimple<Cuenta*>* lista) {
@@ -112,7 +115,6 @@ public:
 				getline(stream, esAliadoPalestino, ',');
 				getline(stream, pais, ',');
 				getline(stream, fechaCreacion, ',');
-				// Pendiente: Migrar la lista a Hash Table
 				lista->pushBack(new Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), esAliadoPalestino, pais, fechaCreacion));
 				ht.insert(Cuenta(stoi(id), cargo, apellido, correo, contrasena, stoi(claveCesar), esAliadoPalestino, pais, fechaCreacion));
 			}
@@ -181,11 +183,10 @@ public:
 	}
 
 	void guardarCorreo(string line, int id){
-		guardado.open("BD/Correos.csv", ios_base::app);
-		guardado << line << endl;
-		guardado.close();
-		string nuevoUsuario = "BD/" + to_string(id) + ".csv";
-		guardado.open(nuevoUsuario, ios::out);
-		guardado.close();
+		//guardaCorreo.open("BD/Correos.csv", ios_base::app);
+		cout << "Guardando:\n" << line;
+		guardaCorreo << line << endl;
+		guardaCorreo.close();
+		return;
 	}
 };
