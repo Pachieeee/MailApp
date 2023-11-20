@@ -171,6 +171,12 @@ public:
 					LSCuenta->mostrarOrdenadoPorHeapSort();
 					// LSCuenta->mostrar();
 					goto ADMINSCREEN_TWO;
+				case 2:
+					generar->generarCuentas();
+					generar->generarCorreos(LSCuenta->getLon(), LSCuenta);
+					system("cls");
+					cout << "Reiniciando el programa...";
+					exit(0);
 				case 0:
 					system("cls");
 					break;

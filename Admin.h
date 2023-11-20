@@ -89,10 +89,9 @@ class Admin{
             cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
             cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
             cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
-            cout << "\t\t\t #" << "\t\t\t\t\t\t    1) Usuarios registrados\t\t\t\t\t\t  #" << 
-            endl;
+            cout << "\t\t\t #" << "\t\t\t\t\t\t    1) Usuarios registrados\t\t\t\t\t\t  #" << endl;
+            cout << "\t\t\t #" << "\t\t\t\t\t\t    2) Generar datos\t\t\t\t\t\t  #" << endl;
             cout << "\t\t\t #" << "\t\t\t\t\t\t    0) Salir\t\t\t\t\t\t\t\t  #" << endl;
-            cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
             cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
             cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
             cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
