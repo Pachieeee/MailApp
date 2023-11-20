@@ -33,7 +33,7 @@ public:
 		cout << "Buscar: "; cin >> campoBusqueda;
 		cout << "\nCargando resultados de busqueda...";
 		string direccion = "BD/" + to_string(idUsuario) + ".csv";
-		iniT.inicializarBusqueda(busqueda, direccion, campoBusqueda, filtro);
+		iniT.inicializarBusqueda(busqueda, idUsuario, campoBusqueda, filtro);
 		cout << "\nResultados de busqueda cargados!\n";
 		busqueda->inOrden();
 		delete busqueda;

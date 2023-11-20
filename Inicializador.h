@@ -146,31 +146,37 @@ public:
 		}
 	}
 
-	void inicializarBusqueda(ArbolAVL<Contenido*>* busqueda, string direc,string obj, int filtro) {
-		lector.open(direc, ios::in);
+	void inicializarBusqueda(ArbolAVL<Contenido*>* busqueda, int idUsuario, string obj, int filtro) {
+		lector.open("BD/Correos.csv", ios::in);
 		if (lector.is_open()) {
-			string tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio;
+			string linea;
+			string id, tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio;
 			char delimit = '|';
-			while (!lector.eof()) {
-				getline(lector, tipo, delimit);
-				getline(lector, autor, delimit);
-				getline(lector, correoAutor, delimit);
-				getline(lector, correoDestino, delimit);
-				getline(lector, asunto, delimit);
-				getline(lector, mensaje, delimit);
-				getline(lector, fechaEnvio, delimit);
-				switch (filtro)
-				{
-				//! Sebas, factoriza el codigo
-				case 1:
-					if (autor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
-					break;
-				case 2:
-					if (correoAutor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
-					break;
-				case 3:
-					if (asunto == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
-					break;
+			while (getline(lector, linea)) {
+				stringstream stream(linea);
+				getline(stream, id, delimit);
+				if (stoi(id) == idUsuario) {
+					getline(stream, tipo, delimit);
+					getline(stream, autor, delimit);
+					getline(stream, correoAutor, delimit);
+					getline(stream, correoDestino, delimit);
+					getline(stream, asunto, delimit);
+					getline(stream, mensaje, delimit);
+					getline(stream, fechaEnvio, delimit);
+
+					switch (filtro)
+					{
+						//! Sebas, factoriza el codigo
+					case 1:
+						if (autor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
+						break;
+					case 2:
+						if (correoAutor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
+						break;
+					case 3:
+						if (asunto == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
+						break;
+					}
 				}
 			}
 			lector.close();
