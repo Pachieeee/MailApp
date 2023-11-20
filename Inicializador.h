@@ -24,6 +24,72 @@ public:
 		if (stat("BD", &buffer)) system("mkdir BD");
 	}
 
+	void generarCuentas() {
+		srand(time(NULL));
+		//Limpia los datos
+		guardado.open("BD/Cuentas.csv", ios::trunc);
+		guardado.close();
+
+		//Genera
+		guardado.open("BD/Cuentas.csv", ios::in);
+		if (guardado.is_open()) {
+			time_t t = time(NULL);
+			tm* tPtr = localtime(&t);
+			vector<string> cargos = { "Presidente", "General", "Coronel", "Teniente", "Subteniente" };
+			vector<string> apellidos =
+			{ "Verona", "Arevalo", "Quispe", "Belleza", "Sihuincha", "Pacheco", "Carranza", "Chavez",
+			"Fernandez", "Linares", "Gutierrez", "Astuyauri", "Julca", "Ramirez", "Morales", "Rojas",
+			"Puican", "Romero", "Salas", "Gomez", "Perez", "Jaque", "Yauri", "Cabrera" };
+			string fecha = to_string(tPtr->tm_mday) + "/" + to_string(tPtr->tm_mon + 1) + "/" + to_string(tPtr->tm_year + 1900);
+			int id = 0;
+			string cargo, apellido, correoB, correo;
+			char correoA;
+
+			for (int i = 0; i < 50; i++) {
+				cargo = cargos[rand() % cargos.size()]; //Elige cargo
+				apellido = apellidos[rand() % apellidos.size()]; //Elige apellido
+				correoA = tolower(cargo[0]); //Agarra el primer caracter
+				correoB = apellido; //Copia el apellido para transformar
+				transform(correoB.begin(), correoB.end(), correoB.begin(), ::tolower); //Apellido en minusculas
+				correo = correoA + correoB + "@palestina.mil"; //Generar correo
+
+				guardado << id << ',' << cargo << ',' << apellido << ',' << correo << ",12345,5,SI,Palestina," << fecha << "\n";
+				id++;
+			}
+			guardado.close();
+		}
+	}
+
+	void generarCorreos(int cant, ListaSimple<Cuenta*>* LSCuenta) {
+		srand(time(NULL));
+		guardado.open("BD/Correos.csv", ios::trunc);
+		guardado.close();
+
+		guardado.open("BD/Correos.csv", ios::in);
+		if (guardado.is_open()) {
+			time_t t = time(NULL);
+			tm* tPtr = localtime(&t);
+			string fecha = to_string(tPtr->tm_mday) + "/" + to_string(tPtr->tm_mon + 1) + "/" + to_string(tPtr->tm_year + 1900);
+			//Datos
+			int id; char tipo; Cuenta* autor; string asunto, conten;
+			//Vectores
+			vector<char> tipos = { 'P', 'E', 'S', 'F', 'T' };
+			vector<string> asuntos = { "Informacion Confidencial", "Fecha de reunion establecida", "URGENTE", "Revisar cuanto antes",
+			"Burrito", "Test de envio de correo", "ACCION", "Firmar documento adjuntado", "SOLICITUD DE PERMISO", "Pregunta sobre la reunion",
+			"Actualizacion de estado", "Solicitud de vacaciones", "Informe de implementacion laboral"};
+			vector<string> contenido = { "Si", "Apruebo esto", "Muchas gracias", "Saludos", "lol", "Aeaaaa", "Responder por favor",
+			"Mover la armada cuanto antes"};
+
+			for (int i = 0; i < 10000; i++) {
+				autor = LSCuenta->getNodo(rand() % cant);
+				id = rand() % cant;
+				tipo = tipos[rand() % tipos.size()];
+				asunto = asuntos[rand() % asuntos.size()];
+				conten = contenido[rand() % contenido.size()];
+				guardado << id << '|' << tipo << "|" << autor->getCargo() << " " << autor->getApellido() << "|" << autor->getCorreo() << "|" << asunto << "|" << conten << "|" << fecha << "\n";
+			}
+		}
+	}
 	void inicializarCuentas(ListaSimple<Cuenta*>* lista) {
 		lector.open("BD/Cuentas.csv", ios::in);
 		if (!lector.is_open())
@@ -53,27 +119,7 @@ public:
 			lector.close();
 		}
 	}
-	/*
-	void inicializarCorreo(ListaDoble<Contenido*>* bandeja, string direc) {
-		lector.open(direc, ios::in);
-		if (lector.is_open()) {
-			string linea; //sstream
-			string tipo, aut, corA, asu, mens, fecha; //datos
 
-			while (getline(lector, linea)) {
-				stringstream stream(linea);
-				getline(stream, tipo, '|');
-				getline(stream, aut, '|');
-				getline(stream, corA, '|');
-				getline(stream, asu, '|');
-				getline(stream, mens, '|');
-				getline(stream, fecha, '|');
-				bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens, fecha));
-			}
-			lector.close();
-		}
-	}
-	*/
 	void inicializarCorreo(ListaDoble<Contenido*>* bandeja, string direc, int idUsuario) {
 		lector.open("BD/Correos.csv", ios::in);
 		if (lector.is_open()) {
