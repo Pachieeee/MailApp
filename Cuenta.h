@@ -3,30 +3,46 @@
 class Cuenta
 {
 private:
-	string nombre;
+	int ID;
+	string cargo;
 	string apellido;
 	string correo;
-	string contra;
-	int ID;
+	string contrasena;
+	int claveCesar;
+	string esAliadoPalestino;
+	string pais;
+	string fechaCreacion;
 public:
 	Cuenta() {
-		this->nombre = "";
+		this->ID = 0;
+		this->cargo = "";
 		this->apellido = "";
 		this->correo = "";
-		this->contra = "";
-		this->ID = 0;
+		this->contrasena = "";
+		this->claveCesar = 0;
+		this->esAliadoPalestino = "";
+		this->pais = "";
+		this->fechaCreacion= "";
 	}
-	Cuenta(string nombre, string apellido, string correo, string contra, int ID) {
-		this->nombre = nombre;
+	Cuenta(int ID, string cargo, string apellido, string correo, string contrasena, int claveCesar, string esAliadoPalestino, string pais, string fechaCreacion) {
+		this->ID = ID;
+		this->cargo = cargo;
 		this->apellido = apellido;
 		this->correo = correo;
-		this->contra = contra;
-		this->ID = ID;
+		this->contrasena = contrasena;
+		this->claveCesar = claveCesar;
+		this->esAliadoPalestino = esAliadoPalestino;
+		this->pais = pais;
+		this->fechaCreacion=fechaCreacion;
 	}
-
-	string getNombre() { return this->nombre; }
+	
+	int getID() { return this->ID; }
+	string getCargo() { return this -> cargo; }
 	string getApellido() { return this->apellido; }
 	string getCorreo() { return this->correo; }
-	string getContra() { return this->contra; }
-	int getID() { return this->ID; }
+	string getContrasena() { return this->contrasena; }
+	int getClaveCesar() { return this->claveCesar; }
+	string getEsAliadoPalestino() { return this->esAliadoPalestino; }
+	string getPais() { return this->pais; }
+	string getFechaCreacion(){ return this-> fechaCreacion; }
 };

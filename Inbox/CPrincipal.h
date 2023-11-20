@@ -18,10 +18,14 @@ public:
 		principal->~ListaDoble();
 	}
 
+	int retornarCantCorreos() {
+		return principal->getLon();
+	}
+
 	void iniciarContenidoPrincipal() {
 		cout << "\nCargando correo principal...";
-		string direccion = "Datos/" + to_string(idUsuario) + ".txt";
-		iniP.inicializarCorreo(principal, direccion, "P");
+		string direccion = "BD/" + to_string(idUsuario) + ".txt";
+		iniP.inicializarCorreo(principal, direccion);
 		cout << "Correo principal cargado!";
 	}
 
@@ -30,7 +34,16 @@ public:
 		cout << "Correo organizado!";
 	}
 
-	void mostrarContenidoPrincipal() {
-		principal->mostrar();
+	void mostrarContenidoPrincipal(int pag, int limite = 10, int ampliar = 11) {
+		//principal->mostrar();
+		cout << "\n===========================================================\n";
+		for (int i = 0; i < limite; i++) {
+
+			if (i == ampliar)
+				principal->vistaAmplia(i + (pag * 10));
+			else
+				principal->vistaSimple(i + (pag * 10));
+			cout << "\n===========================================================\n";
+		}
 	}
 };

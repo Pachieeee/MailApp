@@ -1,73 +1,108 @@
 #pragma once
-#include "Inbox/CPrincipal.h"
-#include "Inbox/CSpam.h"
-#include "Inbox/CEnviado.h"
-#include "Inbox/CPapelera.h"
-#include "Inbox/CFijado.h"
+#include "Bandeja.h"
 #include "Busqueda.h"
+#include "EnviarCorreoQueue.h"
 class Correo {
 private:
-	int usuario; //a
-	CPrincipal* principal;
-	CSpam* spam;
-	CEnviado* enviado;
-	CPapelera* papelera;
-	CFijado* fijado;
+	int usuario;
+	EnviarCorreoQueue* sendMail;
+	Bandeja* inbox;
 	Busqueda* busqueda;
+	ListaDoble<Contenido*>* LSCorreo;
+	Inicializador* generar;		
 public:
 	Correo() {
+		LSCorreo = new ListaDoble<Contenido*>();
+		generar = new Inicializador();
 	}
 	Correo(int ID) {
-		principal = new CPrincipal(ID);
-		spam = new CSpam(ID);
-		enviado = new CEnviado(ID);
-		papelera = new CPapelera(ID);
-		fijado = new CFijado(ID);
+		inbox = new Bandeja(ID);
 		busqueda = new Busqueda(ID);
 	}
 	~Correo() {
-		principal->~CPrincipal();
-		spam->~CSpam();
-		enviado->~CEnviado();
-		papelera->~CPapelera();
-		fijado->~CFijado();
+		inbox->~Bandeja();
 		busqueda->~Busqueda();
 	}
-	void iniciarContenido() {
-		principal->iniciarContenidoPrincipal();
-		spam->iniciarContenidoSpam();
-		enviado->iniciarContenidoEnviado();
-		papelera->iniciarContenidoPapelera();
-		fijado->iniciarContenidoFijado();
-		cout << endl;
-		system("pause");
-	}
 
-	void manejarOpc(int op) {
+	void manejarBandeja(string band) {
+		char charac = '1'; //Opcion elegida por el usuario
+		int pag = 0; //La pagina en la que se encuentra el usuario (max 10 corres/pag)
+		int limite = 10; //El limite de correos que se puede presentar en la pagina (segun la pagina)
+		int ampliar = 11; //Amplia el correo especificado
+		int cantCorreos = inbox->retornarCantCorreos(band);
+		if (cantCorreos == 0) {
+			cout << "Esta seccion se encuentra vacia. Regresando al inbox.\n";
+			return;
+		}
+		inbox->iniciarContenido(band);
+
+		while (tolower(charac) != 'x') {
+			system("cls");
+			//revisar limite de los correos
+			limite = cantCorreos - pag * 10;
+			if (limite > 10) limite = 10;
+			inbox->mostrarContenido(pag, limite, ampliar);
+			if (pag > 0) { //Mostrara solo si se encuentra en una pagina que no es primera
+				cout << "\na: Pagina anterior (" << pag - 1 << ")";
+			}
+			else if (pag < cantCorreos / 10) { //Mostrara las paginas siguientes hasta el limite de correos
+				cout << "\ns: Pagina siguiente (" << pag + 1 << ")";
+			}
+			cout << "\nx: Volver al menu\n\n";
+			cout << pag * 10 + 1 << " - " << pag * 10 + limite << " / " << cantCorreos << endl;
+			cout << "Opcion: "; charac = cin.get();
+			//Pagina anterior
+			if (tolower(charac) == 'a' && pag > 0) {
+				pag--;
+				ampliar = 11;
+			}
+			//Pagina siguiente
+			else if (tolower(charac) == 's' && pag < cantCorreos / 10) {
+				pag++;
+				ampliar = 11;
+			}
+			//Numero de correo en pagina actual
+			else if (charac > 47 && charac < 58) {
+				ampliar = (int)charac - 49;
+				if (ampliar == -1)
+					ampliar = 9;
+			}
+		}
+		inbox->limpiarSeccion();
+	}
+	//  tipo, autor, correoAutor
+	// id, esAliadoPalestino, correoAutor, apellido, op)
+	void manejarOpc(int id, string esAliadoPalestino, string correoAutor, string apellido, int op) {
 		switch (op) {
+		case 0:
+			system("cls");
+			cout << "Ingresaste a la funcion para enviar correo" << endl;
+			// sendMail->iniciarContenidoEnviado();
+			sendMail->enqueue(id, esAliadoPalestino, correoAutor, apellido);
+			break;
 		case 1:
 			system("cls");
-			principal->mostrarContenidoPrincipal();
+			manejarBandeja("P");
 			break;
 		case 2:
 			system("cls");
-			fijado->mostrarContenidoFijado();
+			manejarBandeja("F");
 			break;
 		case 3:
 			system("cls");
-			spam->mostrarContenidoSpam();
+			manejarBandeja("S");
 			break;
 		case 4:
 			system("cls");
-			enviado->mostrarContenidoEnviado();
+			manejarBandeja("E");
 			break;
 		case 5:
 			system("cls");
-			papelera->mostrarContenidoPapelera();
+			manejarBandeja("T");
 			break;
 		case 6:
 			system("cls");;
-			principal->ordenarPorInicialAutor();
+			inbox->ordenarPorInicialAutor();
 			break;
 		case 7:
 			system("cls");
@@ -81,10 +116,12 @@ public:
 		}
 	}
 
-	int menuCliente(string nombre) {
+	int menuCliente(string apellido, string cargo) {
 		int op;
 		system("cls");
-		cout << "Bienvenido, " << nombre;
+		//! El cargo y apellido sale mal
+		cout << "\nBienvenido, " << cargo << " "<< apellido;
+		cout << "\n0. [Enviar mensaje]";
 		cout << "\n1. Ver inbox principal";
 		cout << "\n2. Ver inbox fijado";
 		cout << "\n3. Ver inbox spam";
@@ -97,12 +134,14 @@ public:
 		return op;
 	}
 
-	void manejarCorreo(string nombre) {
+	void manejarCorreo(int id, string esAliadoPalestino, string correoAutor, string apellido, string cargo) {
 		int op;
-		iniciarContenido();
+		inbox->iniciarBandeja();
+		//! Inicializar correos mal
+		// generar->inicializarCorreos(LSCorreo);
 		do {
-			op = menuCliente(nombre);
-			manejarOpc(op);
+			op = menuCliente(apellido, cargo);
+			manejarOpc(id, esAliadoPalestino, correoAutor, apellido, op);
 			system("pause");
 		} while (op > 0 && op < 8);
 	}

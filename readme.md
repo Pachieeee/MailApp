@@ -1,6 +1,5 @@
-# Gmail Clone
 
 
-## Para sus commits pueden usar emojis Owo: 
+Gmail Clone in C++
 
-https://gitmoji.dev/
+[![wtf](https://i.postimg.cc/15CTPJnd/Smurf-Cat-Image.webp)](https://postimg.cc/fJd5f7v7)

@@ -2,6 +2,13 @@
 #include <fstream>
 #include <string>
 #include <functional>
+#include <stack>
+// #include <conio.h>
+#include <sys/stat.h> // Para mkdir en sistemas Unix/Linux
+#include <regex>
+#include <sstream>	//stream
+#include <ctime>
+
 using namespace std;
 
 #include "MailApp.h"
