@@ -237,7 +237,7 @@ public:
 			Cuenta* cuentaNodo = (Cuenta*)(nodo->elem);
 			if (verificar(cuentaNodo->getCorreo(), cuentaNodo->getContrasena(), correo, contra)) { 
 				cout << "\nInicio de sesion correcto! Registrado como ";
-				cout << cuentaNodo->getPais() << ", " << cuentaNodo->getCargo() << " " << cuentaNodo->getApellido();
+				cout << cuentaNodo->getCargo() << " " << cuentaNodo->getApellido();
 				return cuentaNodo->getID();
 			}
 			nodo = nodo->sig;

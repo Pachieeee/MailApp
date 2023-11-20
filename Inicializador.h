@@ -119,24 +119,24 @@ public:
 			lector.close();
 		}
 	}
-
 	void inicializarCorreo(ListaDoble<Contenido*>* bandeja, string direc, int idUsuario) {
 		lector.open("BD/Correos.csv", ios::in);
 		if (lector.is_open()) {
 			string linea; //sstream
-			string id, tipo, aut, corA, asu, mens, fecha; //datos
+			string tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio;
 
 			while (getline(lector, linea)) {
 				stringstream stream(linea);
 				getline(stream, id, '|');
 				if (stoi(id) == idUsuario) { //Si la ID corresponde al usuario
 					getline(stream, tipo, '|');
-					getline(stream, aut, '|');
-					getline(stream, corA, '|');
-					getline(stream, asu, '|');
-					getline(stream, mens, '|');
-					getline(stream, fecha, '|');
-					bandeja->pushBack(new Contenido(tipo, aut, corA, asu, mens, fecha));
+					getline(stream, autor, '|');
+					getline(stream, correoAutor, '|');
+					getline(stream, correoDestino, '|');
+					getline(stream, asunto, '|');
+					getline(stream, mensaje, '|');
+          getline(stream, fechaEnvio, '|');
+					bandeja->pushBack(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
 				}
 			}
 			lector.close();
@@ -146,26 +146,26 @@ public:
 	void inicializarBusqueda(ArbolAVL<Contenido*>* busqueda, string direc,string obj, int filtro) {
 		lector.open(direc, ios::in);
 		if (lector.is_open()) {
-			string linea;
-			string tipo, autor, correoAutor, asunto, mensaje, fecha;
-			while (getline(lector, linea)) {
-				stringstream stream(linea);
-				getline(stream, tipo, '|');
-				getline(stream, autor, '|');
-				getline(stream, correoAutor, '|');
-				getline(stream, asunto, '|');
-				getline(stream, mensaje, '|');
-				getline(stream, fecha, '|');
+			string tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio;
+			while (!lector.eof()) {
+				getline(lector, tipo, delimit);
+				getline(lector, autor, delimit);
+				getline(lector, correoAutor, delimit);
+				getline(lector, correoDestino, delimit);
+				getline(lector, asunto, delimit);
+				getline(lector, mensaje, delimit);
+				getline(lector, fechaEnvio, delimit);
 				switch (filtro)
 				{
+				//! Sebas, factoriza el codigo
 				case 1:
-					if (autor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, asunto, mensaje, fecha));
+					if (autor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
 					break;
 				case 2:
-					if (correoAutor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, asunto, mensaje, fecha));
+					if (correoAutor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
 					break;
 				case 3:
-					if (asunto == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, asunto, mensaje, fecha));
+					if (asunto == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
 					break;
 				}
 			}
@@ -176,6 +176,15 @@ public:
 	void guardarCuenta(string line, int id) {
 		guardado.open("BD/Cuentas.csv", ios_base::app);
 		guardado << line << endl;
+		guardado.close();
+	}
+
+	void guardarCorreo(string line, int id){
+		guardado.open("BD/Correos.csv", ios_base::app);
+		guardado << line << endl;
+		guardado.close();
+		string nuevoUsuario = "BD/" + to_string(id) + ".csv";
+		guardado.open(nuevoUsuario, ios::out);
 		guardado.close();
 	}
 };
