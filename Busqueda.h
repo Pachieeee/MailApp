@@ -36,11 +36,11 @@ public:
 		iniT.inicializarBusqueda(busqueda, idUsuario, campoBusqueda, filtro);
 		cout << "\nResultados de busqueda cargados!\n";
 		busqueda->inOrden();
+		system("pause>null");
 		delete busqueda;
 		busqueda = new ArbolAVL<Contenido*>(imprimir);
 		//busqueda->mostrar();
 		//delete busqueda;
-		system("pause>null");
 	}
 
 	void menuBusqueda() {
@@ -49,14 +49,13 @@ public:
 		{
 			system("cls");
 			cout << "\nBusqueda\n";
-			cout << "\n1. Buscar mensajes por autor";
-			cout << "\n2. Buscar mensajes por direccion de correo";
-			cout << "\n3. Buscar mensajes por asunto";
-			cout << "\n4. Buscar mensajes por fecha";
+			cout << "\n1. Buscar mensajes por direccion de correo";
+			cout << "\n2. Buscar mensajes por asunto";
+			cout << "\n3. Buscar mensajes por fecha";
 			cout << "\n0. Cancelar\n";
 			cout << "\nOpcion: "; cin >> filtro;
-			if (!filtro) break;
 			busquedaPorFiltro(filtro);
+			break;
 		} while (true);
 	}
 };

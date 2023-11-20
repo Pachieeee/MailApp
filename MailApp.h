@@ -70,9 +70,9 @@ public:
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t #" << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  #" << endl;
-		cout << "\t\t\t #" << "\t\t\t\t\t\t\tAstuyauri, Jhomar\t\t\t\t  #" << endl;
-		cout << "\t\t\t #" << "\t\t\t\t\t\t\tCabrera, Sebastian\t\t\t\t  #" << endl;
-		cout << "\t\t\t #" << "\t\t\t\t\t\t\tPacheco, Sebastian\t\t\t\t  #" << endl;
+		cout << "\t\t\t #" << "\t\t\t\t\t\t\tAstuyauri, Jhomar\t\t\t\t\t\t  #" << endl;
+		cout << "\t\t\t #" << "\t\t\t\t\t\t\tCabrera, Sebastian\t\t\t\t\t\t  #" << endl;
+		cout << "\t\t\t #" << "\t\t\t\t\t\t\tPacheco, Sebastian\t\t\t\t\t\t  #" << endl;
 		cout << "\t\t\t ##########################################################################################################################" << endl;
 		cout << "\t\t\t ",system("pause");
 	}

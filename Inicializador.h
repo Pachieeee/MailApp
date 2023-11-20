@@ -48,6 +48,13 @@ public:
 			char correoA;
 
 			for (int i = 0; i < 50; i++) {
+				// Generar una fecha aleatoria posterior al año 2020
+				int anio = rand() % 4 + 2021;  // Rango: 2021 a 2024
+				int mes = rand() % 12 + 1;   // Rango: 1 a 12
+				int dia = rand() % 28 + 1;     // Rango: 1 a 28
+
+				string fecha = to_string(dia) + "/" + to_string(mes) + "/" + to_string(anio);
+
 				cargo = cargos[rand() % cargos.size()]; //Elige cargo
 				apellido = apellidos[rand() % apellidos.size()]; //Elige apellido
 				correoA = tolower(cargo[0]); //Agarra el primer caracter
@@ -71,9 +78,8 @@ public:
 		if (guardado.is_open()) {
 			time_t t = time(NULL);
 			tm* tPtr = localtime(&t);
-			string fecha = to_string(tPtr->tm_mday) + "/" + to_string(tPtr->tm_mon + 1) + "/" + to_string(tPtr->tm_year + 1900);
 			//Datos
-			int id; char tipo; Cuenta* autor, *destino; string asunto, conten;
+			int id; char tipo; Cuenta* autor, *destino; string asunto, conten, fecha;
 			//Vectores
 			vector<char> tipos = { 'P', 'E', 'S', 'F', 'T' };
 			vector<string> asuntos = { "Informacion Confidencial", "Fecha de reunion establecida", "URGENTE", "Revisar cuanto antes",
@@ -83,6 +89,12 @@ public:
 			"Mover la armada cuanto antes"};
 
 			for (int i = 0; i < 10000; i++) {
+				// Generar una fecha aleatoria posterior al año 2020
+				int anio = rand() % 4 + 2021;  // Rango: 2021 a 2024
+				int mes = rand() % 12 + 1;   // Rango: 1 a 12
+				int dia = rand() % 28 + 1;     // Rango: 1 a 28
+
+				fecha = to_string(dia) + "/" + to_string(mes) + "/" + to_string(anio);
 				autor = LSCuenta->getNodo(rand() % cant);
 				destino = LSCuenta->getNodo(rand() % cant);
 				id = rand() % cant;
@@ -166,15 +178,14 @@ public:
 
 					switch (filtro)
 					{
-						//! Sebas, factoriza el codigo
 					case 1:
-						if (autor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
-						break;
-					case 2:
 						if (correoAutor == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
 						break;
-					case 3:
+					case 2:
 						if (asunto == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
+						break;
+					case 3:
+						if (fechaEnvio == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
 						break;
 					}
 				}
