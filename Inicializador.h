@@ -25,7 +25,10 @@ public:
 	void CrearCarpeta() {
 		if (stat("BD", &buffer)) system("mkdir BD");
 	}
-
+	char ceroIzquierda(int x) {
+		if (x / 10 == 0) return '0';
+		else return NULL;
+	}
 	void generarCuentas() {
 		srand(time(NULL));
 		//Limpia los datos
@@ -42,7 +45,7 @@ public:
 			{ "Verona", "Arevalo", "Quispe", "Belleza", "Sihuincha", "Pacheco", "Carranza", "Chavez",
 			"Fernandez", "Linares", "Gutierrez", "Astuyauri", "Julca", "Ramirez", "Morales", "Rojas",
 			"Puican", "Romero", "Salas", "Gomez", "Perez", "Jaque", "Yauri", "Cabrera" };
-			string fecha = to_string(tPtr->tm_mday) + "/" + to_string(tPtr->tm_mon + 1) + "/" + to_string(tPtr->tm_year + 1900);
+			string fecha = to_string(tPtr->tm_mday) + "/" + ceroIzquierda(tPtr->tm_mon + 1) + to_string(tPtr->tm_mon + 1) + "/" + ceroIzquierda(tPtr->tm_year + 1900) + to_string(tPtr->tm_year + 1900);
 			int id = 0;
 			string cargo, apellido, correoB, correo;
 			char correoA;
@@ -53,7 +56,7 @@ public:
 				int mes = rand() % 12 + 1;   // Rango: 1 a 12
 				int dia = rand() % 28 + 1;     // Rango: 1 a 28
 
-				string fecha = to_string(dia) + "/" + to_string(mes) + "/" + to_string(anio);
+				fecha = to_string(anio) + "/" + ceroIzquierda(mes) + to_string(mes) + "/" + ceroIzquierda(dia) + to_string(dia);
 
 				cargo = cargos[rand() % cargos.size()]; //Elige cargo
 				apellido = apellidos[rand() % apellidos.size()]; //Elige apellido
@@ -94,7 +97,7 @@ public:
 				int mes = rand() % 12 + 1;   // Rango: 1 a 12
 				int dia = rand() % 28 + 1;     // Rango: 1 a 28
 
-				fecha = to_string(dia) + "/" + to_string(mes) + "/" + to_string(anio);
+				fecha = to_string(anio) + "/" + ceroIzquierda(mes) + to_string(mes) + "/" + ceroIzquierda(dia) + to_string(dia);
 				autor = LSCuenta->getNodo(rand() % cant);
 				destino = LSCuenta->getNodo(rand() % cant);
 				id = rand() % cant;
@@ -150,7 +153,7 @@ public:
 					getline(stream, correoDestino, delimit);
 					getline(stream, asunto, delimit);
 					getline(stream, mensaje, delimit);
-            getline(stream, fechaEnvio, delimit);
+					getline(stream, fechaEnvio, delimit);
 					bandeja->pushBack(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
 				}
 			}
@@ -160,6 +163,12 @@ public:
 
 	void inicializarBusqueda(ArbolAVL<Contenido*>* busqueda, int idUsuario, string obj, int filtro) {
 		lector.open("BD/Correos.csv", ios::in);
+		string fechaIni, fechaFin;
+		if (filtro == 3) {
+			cout << "Formato de fecha: AAAA/MM/DD (año/mes/dia)" << endl;
+			cout << "Ingrese fecha de inicio: "; cin >> fechaIni;
+			cout << "Ingrese fecha de fin: "; cin >> fechaFin;
+		}
 		if (lector.is_open()) {
 			string linea;
 			string id, tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio;
@@ -185,7 +194,7 @@ public:
 						if (asunto == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
 						break;
 					case 3:
-						if (fechaEnvio == obj) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
+						if (fechaIni.compare(fechaEnvio) <= 0 && fechaEnvio.compare(fechaFin) <= 0) busqueda->Insertar(new Contenido(tipo, autor, correoAutor, correoDestino, asunto, mensaje, fechaEnvio));
 						break;
 					}
 				}

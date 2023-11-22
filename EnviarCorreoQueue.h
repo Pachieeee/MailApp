@@ -28,7 +28,7 @@ class EnviarCorreoQueue{
             time_t t = time(nullptr);
             tm* now = localtime(&t);
 
-            string fechaActual = to_string(now->tm_mday) + "/" + to_string(now->tm_mon + 1) + "/" + to_string(now->tm_year + 1900);
+            string fechaActual = to_string(now->tm_year + 1900) + "/" + to_string(now->tm_mon + 1) + "/" + to_string(now->tm_mday);
 
             cout << "Fecha actual: " << fechaActual << endl;
             return fechaActual;

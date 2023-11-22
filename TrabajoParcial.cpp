@@ -10,6 +10,7 @@
 #include <ctime>
 
 using namespace std;
+using namespace System;
 
 #include "MailApp.h"
 #include "Cuenta.h"
@@ -19,6 +20,7 @@ using namespace std;
 
 int main()
 {
+    Console::SetWindowSize(170, 45);
     MailApp* start = new MailApp;
     start->Run();
     return 0;    

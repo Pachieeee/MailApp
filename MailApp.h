@@ -29,9 +29,13 @@ public:
 		delete creador;
 		delete generar;
 	}
+	char ceroIzquierda(int x) {
+		if (x / 10 == 0) return '0';
+		else return NULL;
+	}
 
 	void bienvenida(tm* tPtr){
-		cout << "\n\n\n\t\t\t Fecha: " << (tPtr->tm_mday) << "/" << (tPtr->tm_mon) + 1 << "/" << (tPtr->tm_year) + 1900 << endl;
+		cout << "\n\n\n\t\t\t Fecha: " << to_string(tPtr->tm_year + 1900) + "/" + ceroIzquierda(tPtr->tm_mon + 1) + to_string(tPtr->tm_mon + 1) + "/" + ceroIzquierda(tPtr->tm_mday) + to_string(tPtr->tm_mday) << endl;
 		cout << "\t\t\t Hora: " << (tPtr->tm_hour) << ":" << (tPtr->tm_min) << endl;
 
 		cout << "\t\t\t ##########################################################################################################################" << endl;

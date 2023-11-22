@@ -16,7 +16,7 @@ private:
 	int idUsuario;
 	string campoBusqueda;
 	ArbolAVL<Contenido*>* busqueda;
-	
+
 public:
 	Busqueda(int id) {
 		//busqueda = new ListaDoble<Contenido*>();
@@ -30,17 +30,17 @@ public:
 	}
 
 	void busquedaPorFiltro(int filtro) {
-		cout << "Buscar: "; cin >> campoBusqueda;
-		cout << "\nCargando resultados de busqueda...";
+		if (filtro == 1 || filtro == 2) {
+			cout << "Buscar: "; cin >> campoBusqueda;
+		}
 		string direccion = "BD/" + to_string(idUsuario) + ".csv";
 		iniT.inicializarBusqueda(busqueda, idUsuario, campoBusqueda, filtro);
+		cout << "\nCargando resultados de busqueda...";
 		cout << "\nResultados de busqueda cargados!\n";
 		busqueda->inOrden();
 		system("pause>null");
 		delete busqueda;
 		busqueda = new ArbolAVL<Contenido*>(imprimir);
-		//busqueda->mostrar();
-		//delete busqueda;
 	}
 
 	void menuBusqueda() {
@@ -51,7 +51,7 @@ public:
 			cout << "\nBusqueda\n";
 			cout << "\n1. Buscar mensajes por direccion de correo";
 			cout << "\n2. Buscar mensajes por asunto";
-			cout << "\n3. Buscar mensajes por fecha";
+			cout << "\n3. Buscar mensajes por intervalo de fechas";
 			cout << "\n0. Cancelar\n";
 			cout << "\nOpcion: "; cin >> filtro;
 			busquedaPorFiltro(filtro);
