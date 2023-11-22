@@ -58,11 +58,16 @@ public:
 		else return false;
 	}
 
+	char ceroIzquierda(int x) {
+		if (x / 10 == 0) return '0';
+		else return NULL;
+	}
+
 	string obtenerFechaActual() {
 		time_t t = time(nullptr);
 		tm* now = localtime(&t);
 
-		string fechaActual = to_string(now->tm_mday) + "/" + to_string(now->tm_mon + 1) + "/" + to_string(now->tm_year + 1900);
+		string fechaActual = to_string(now->tm_year + 1900) + "/" + ceroIzquierda(now->tm_mon + 1) + to_string(now->tm_mon + 1) + "/" + ceroIzquierda(now->tm_mday) + to_string(now->tm_mday);
 
 		cout << "Fecha actual: " << fechaActual << endl;
 		return fechaActual;
