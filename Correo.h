@@ -2,6 +2,7 @@
 #include "Bandeja.h"
 #include "Busqueda.h"
 #include "EnviarCorreoQueue.h"
+#include "GestionDatos.h"
 class Correo {
 private:
 	int usuario;
@@ -73,10 +74,26 @@ public:
 	//  tipo, autor, correoAutor
 	// id, esAliadoPalestino, correoAutor, apellido, op)
 	void manejarOpc(int id, string esAliadoPalestino, string correoAutor, string apellido, int op) {
+		GestionDatos* oGestion = new GestionDatos();
 		switch (op) {
 		case 0:
 			system("cls");
-			cout << "Ingresaste a la funcion para enviar correo" << endl;
+			// ! Empieza el grafo: 
+			// ! Envia un mensaje a un pais aliado en el menor costo
+			// Generamos la Matriz de Adyacencia desde el Archivo
+			// Cargamos la Matriz en el Grafo
+			oGestion->Grafo_GenerarDatos_MatrizAdyacencia();
+
+			// Mostrar Datos del Grafo
+			cout << endl << endl;
+			// oGestion->Grafo_MostrarDatos();
+
+			// Usar Dijkstra: Camino de costo minimo
+			oGestion->CaminoCostoMinimo(0); // 0: Nodo Inicio
+
+			if (oGestion != NULL) delete oGestion;
+			//! Fin del grafo
+			cout << "Ingresaste a la funcion Enviar Correo" << endl;
 			// sendMail->iniciarContenidoEnviado();
 			sendMail->enqueue(id, esAliadoPalestino, correoAutor, apellido);
 			break;
